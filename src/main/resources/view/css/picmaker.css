@@ -1,0 +1,31 @@
+
+.viewer{
+    -fx-pref-width: 280px;
+    -fx-pref-height: 280px;
+    -fx-min-width: 265px;
+    -fx-min-height: 265px;
+
+    -fx-alignment: center;
+
+    /*-fx-background-color: red;*/
+}
+
+.viewer > .preview{
+
+    /*-fx-border-color: #CCCCCC;*/
+    /*-fx-border-width: 1px;*/
+    /*-fx-border-insets: 1px;*/
+    -fx-alignment: center;
+
+    -fx-pref-width: 265px;
+    -fx-pref-height: 265px;
+    -fx-min-width: 265px;
+    -fx-min-height: 265px;
+    -fx-max-width: 265px;
+    -fx-max-height: 265px;
+
+    -fx-background-color: white;
+}
+
+.viewer > .preview > .image-loader{
+}

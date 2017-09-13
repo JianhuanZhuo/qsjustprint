@@ -1,0 +1,19 @@
+
+#custom-root{
+    -fx-spacing: 5px;
+    -fx-padding: 5px;
+}
+
+
+/*带删除和增加按钮的画板头*/
+#custom-root > .custom-select > HBox{
+    -fx-alignment: center-right;
+}
+
+#custom-root > .custom-select > ListView {
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+
+    -fx-pref-width: 168px;
+}

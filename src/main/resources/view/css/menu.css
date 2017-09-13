@@ -1,0 +1,11 @@
+.menu-root{
+    -fx-min-width: 230px;
+    -fx-pref-width: 230px;
+    -fx-min-height: 300px;
+    -fx-pref-height: 200px;
+    -fx-background-color: #2B3245;
+
+    -fx-alignment: top-center;
+    -fx-spacing: 5px;
+    -fx-padding: 20px 0;
+}

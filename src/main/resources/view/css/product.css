@@ -1,0 +1,73 @@
+
+/*产品清单控件*/
+.prod-item{
+    -fx-alignment: center;
+    -fx-padding: 3px;
+    /*-fx-background-color: #41a9c9;*/
+}
+
+
+/*产品图片*/
+.prod-item .item-pic {
+    /*-fx-background-color: darkseagreen;*/
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+}
+.prod-item .item-pic .item-pic-img {
+}
+
+/*产品信息头*/
+.prod-item .item-title {
+    /*-fx-background-color: #666666;*/
+    -fx-alignment: top-left;
+}
+
+.prod-item .item-title-head{
+    -fx-font: normal normal 18px "微软雅黑";
+}
+
+.prod-item .item-title-detail{
+    -fx-font: normal normal 12px "微软雅黑";
+
+}
+
+/*产品单价*/
+.prod-item .item-price {
+    /*-fx-background-color: #ABD8ED;*/
+    -fx-alignment: center-left;
+    -fx-pref-width: 100px;
+}
+
+/*产品装数*/
+.prod-item .item-pack {
+    -fx-alignment: center-left;
+    -fx-pref-width: 120px;
+}
+
+.prod-item .item-pack .item-pack-choice {
+    /*-fx-background-color: #2B3245;*/
+    -fx-pref-width: 100px;
+}
+
+.prod-item .item-pack .item-pack-choice .open-button{
+    /*-fx-background-color: red;*/
+}
+
+/*产品订购数*/
+.prod-item .item-num {
+    -fx-alignment: center-left;
+    -fx-pref-width: 130px;
+}
+
+.prod-item .item-num TextField{
+    -fx-pref-width: 60px;
+}
+
+
+/*金额统计*/
+.prod-item .item-total {
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 0 15px;
+    -fx-pref-width: 130px;
+}

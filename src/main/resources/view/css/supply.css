@@ -1,0 +1,171 @@
+#custom-root{
+    -fx-background-color: white;
+    -fx-padding: 5px;
+
+    -fx-spacing: 5px;
+
+    -fx-pref-width: 740px;
+    -fx-pref-height: 560px;
+}
+
+#custom-root > .custom-select{
+}
+
+/*带删除和增加按钮的画板头*/
+#custom-root > .custom-select > HBox{
+    -fx-background-color: #F5F8FD;
+    -fx-alignment: center-right;
+    -fx-padding: 2px;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+
+    -fx-spacing: 10px;
+}
+
+#custom-root > .custom-select > ListView {
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+
+    -fx-pref-width: 168px;
+}
+
+/********************************************************************/
+#custom-root > .detail{
+    -fx-spacing: 10px;
+}
+
+#custom-root .info{
+    /*-fx-background-color: blue;*/
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+    -fx-alignment: top-right;
+}
+
+#custom-root .info > StackPane, #custom-root .item > StackPane{
+    -fx-background-color: #F5F8FD;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+
+    -fx-padding: 2 5px;
+
+    -fx-font: normal normal 16px "微软雅黑";
+}
+
+/*!*#custom-root .info > StackPane ImageView,*!*/
+/*#custom-root .item > StackPane > HBox >  ImageView :hover{*/
+/*-fx-cursor: hand;*/
+/*-fx-background-color: red;*/
+/*}*/
+
+
+#custom-root .info > GridPane{
+    /*-fx-background-color: RED;*/
+    -fx-alignment: center-right;
+    -fx-hgap: 10px;
+    -fx-vgap: 5px;
+}
+
+
+#custom-root .info > GridPane Label{
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+
+#custom-root .item > TableView{
+
+}
+
+
+#custom-root{
+    -fx-background-color: white;
+    -fx-padding: 5px;
+
+    -fx-spacing: 5px;
+
+    -fx-pref-width: 740px;
+    -fx-pref-height: 560px;
+}
+
+#custom-root > .custom-select{
+}
+
+/*带删除和增加按钮的画板头*/
+#custom-root > .custom-select > HBox{
+    -fx-background-color: #F5F8FD;
+    -fx-alignment: center-right;
+    -fx-padding: 2px;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+
+    -fx-spacing: 10px;
+}
+
+#custom-root > .custom-select > ListView {
+    -fx-background-color: white;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+
+    -fx-pref-width: 168px;
+}
+
+/********************************************************************/
+#custom-root > .detail{
+    -fx-spacing: 10px;
+}
+
+#custom-root .info{
+    /*-fx-background-color: blue;*/
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+    -fx-alignment: top-right;
+}
+
+#custom-root .info > StackPane,
+#custom-root .item > StackPane,
+#custom-root .acc > StackPane{
+    -fx-background-color: #F5F8FD;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+
+    -fx-padding: 2 5px;
+
+    -fx-font: normal normal 16px "微软雅黑";
+}
+
+/*!*#custom-root .info > StackPane ImageView,*!*/
+/*#custom-root .item > StackPane > HBox >  ImageView :hover{*/
+/*-fx-cursor: hand;*/
+/*-fx-background-color: red;*/
+/*}*/
+
+
+#custom-root .info > GridPane ,
+#custom-root .account > GridPane{
+    /*-fx-background-color: RED;*/
+    -fx-alignment: center-right;
+    -fx-hgap: 10px;
+    -fx-vgap: 5px;
+}
+
+
+#custom-root .info > GridPane Label{
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+
+#custom-root .item > TableView{
+
+}

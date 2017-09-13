@@ -1,0 +1,66 @@
+.mainpane {
+    -fx-min-width: 500px;
+    -fx-min-height: 700px;
+    -fx-pref-width: 1000px;
+    -fx-pref-height: 700px;
+    -fx-background-image: url("../img/bg3.jpg");
+}
+
+.headpane {
+    -fx-background-color: #2B3245;
+    -fx-max-height: 75px;
+    -fx-min-height: 75px;
+
+    -fx-alignment: center;
+    -fx-fill-height: false;
+
+    -fx-padding: 0px 40px;
+
+    -fx-spacing: 10px;
+
+    -fx-text-fill: #CCCCCC;
+}
+
+.headpane > HBox {
+    -fx-alignment: bottom-left;
+    -fx-spacing: 10px;
+}
+
+.headpane Label {
+    -fx-text-fill: #CCCCCC;
+    -fx-font: normal normal 18px "微软雅黑";
+}
+
+
+
+.bottompane {
+    -fx-alignment: center;
+    -fx-pref-height: 40px;
+    -fx-background-color: #2B3245;
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+/*left menu bar partition, that is a scroll pane */
+.menuScp {
+    -fx-max-width: 230px;
+    -fx-pref-width: 230px;
+    -fx-min-width: 230px;
+
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+    /*-fx-hbar-policy: always;*/
+    /*-fx-vbar-policy: always;*/
+}
+
+.centerScp {
+    -fx-background-color: transparent;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}
+
+.centerScp > .viewport {
+    -fx-background-color: transparent;
+}

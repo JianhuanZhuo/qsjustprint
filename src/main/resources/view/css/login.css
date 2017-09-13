@@ -1,0 +1,72 @@
+#rootpane{
+    -fx-alignment: center-right;
+    -fx-fill-width: false;
+}
+
+#loginpane{
+    -fx-background-color: white;
+    -fx-pref-width: 400px;
+    -fx-pref-height: 300px;
+    -fx-max-width: 400px;
+
+    -fx-border-width: 1px;
+    -fx-border-color: #2B3245;
+}
+
+#loginpane > VBox{
+    -fx-padding: 13px;
+}
+
+#loginpane > VBox > HBox{
+    /*-fx-background-color: thistle;*/
+    -fx-alignment: center;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+    -fx-padding: 3px 10px;
+}
+
+#loginpane > VBox > HBox > TextField, PasswordField{
+    -fx-pref-height: 40px;
+    -fx-pref-width: 400px;
+    -fx-background-color: transparent;
+    -fx-font: normal normal 20px "微软雅黑";
+}
+#loginpane > VBox > HBox > TextField :focused:empty {
+    -fx-background-color: red;
+}
+
+/*登录按钮处*/
+#loginaction{
+    /*-fx-background-color: aqua;*/
+    -fx-alignment: bottom-left;
+    -fx-padding: 0px 20px 20px 20px;
+    -fx-spacing: 10px;
+}
+
+#loginaction > Button{
+    -fx-font: normal normal 18px "微软雅黑";
+    -fx-background-color: #2B3245;
+    -fx-text-fill: #E1E1E1;
+    -fx-padding: 5 25px;
+}
+
+#loginaction > Label{
+    -fx-underline: true;
+}
+
+#loginhead{
+    -fx-min-height: 80px;
+    -fx-max-height: 80px;
+
+    -fx-alignment: center-left;
+    -fx-padding: 24px;
+
+    -fx-background-color: #2B3245;
+}
+
+/*选择登录系统字样*/
+#loginhead > Label{
+    -fx-font: normal bolder 24px "微软雅黑";
+    -fx-text-fill: #E1E1E1;
+}

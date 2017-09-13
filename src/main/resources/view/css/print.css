@@ -1,0 +1,206 @@
+/*预览样式*/
+.preview TextField {
+    -fx-background-color: transparent;
+}
+
+/*打印页面背景容器*/
+.layout_holder {
+    -fx-alignment: center;
+    -fx-background-color: rgba(81, 81, 81, 0.85);
+
+    -fx-min-width: 800px;
+    -fx-min-height: 500px;
+
+    -fx-padding: 20px 40px;
+}
+
+.snap.layout_holder {
+    -fx-padding: 0;
+    -fx-min-width: 0px;
+    -fx-min-height: 0px;
+}
+
+/*打印面板*/
+.print_layout {
+    -fx-background-color: white;
+}
+
+.layout_A4H {
+    -fx-min-height: 595px;
+    -fx-max-height: 595px;
+    -fx-min-width: 840px;
+    -fx-max-width: 840px;
+    -fx-padding: 25px;
+}
+.snap .layout_A4H {
+     -fx-min-height: 545px;
+     -fx-max-height: 545px;
+     -fx-min-width: 790;
+     -fx-max-width: 790;
+     -fx-padding: 0;
+ }
+
+.layout_A5H {
+    /*
+    default:
+    pageLayout.getTopMargin()54.0
+    pageLayout.getBottomMargin()54.0
+    pageLayout.getLeftMargin()54.0
+    pageLayout.getRightMargin()54.0
+    pageLayout.getPrintableHeight()312.0
+    pageLayout.getPrintableWidth()487.0
+
+    my:
+    getTopMargin()70
+    getLeftMargin()25
+    */
+    /*-fx-default-margin: 54px;*/
+    -fx-min-height: 420px;
+    -fx-max-height: 420px; /*312+(54*2=108)=420*/
+    -fx-min-width: 595px;
+    -fx-max-width: 595px;    /*487+(54*2=108)=595*/
+    -fx-padding: 25px;
+}
+
+.snap .layout_A5H {
+    -fx-min-height: 370;
+    -fx-max-height: 370;
+    -fx-min-width: 545;
+    -fx-max-width: 545;
+    -fx-padding: 0;
+}
+
+/***************************************************************
+ * 打印内容相关的设定
+ *
+ ***************************************************************/
+.print_title {
+    -fx-font: bolder bolder 24px "微软雅黑";
+}
+
+.print_font {
+    -fx-font: normal normal 12px "微软雅黑";
+}
+
+.fitpack TextField {
+    -fx-padding: 0;
+}
+
+GridPane.fitpack TextField {
+    -fx-pref-width: 200px;
+}
+
+.tab{
+    -fx-border-color: black;
+    -fx-padding: 0;
+}
+
+/*表格内容*/
+.tab Label {
+    -fx-font: normal normal 12px "微软雅黑";
+}
+
+.tab .table-row-cell {
+    -fx-background-color: white;
+}
+
+.tab .table-row-cell * {
+    -fx-text-fill: -fx-text-base-color;
+}
+
+.tab .table-cell{
+    -fx-border-width: 1;
+    -fx-border-insets: -0.5;
+    -fx-border-color: black;
+    -fx-alignment: center;
+    -fx-font: normal normal 12px "微软雅黑";
+}
+
+/*用于带税的月对账表*/
+.tab.smallfont .table-cell{
+    -fx-font: normal normal 10px "微软雅黑";
+}
+.tab.smallfont Label {
+    -fx-font: normal normal 11px "微软雅黑";
+}
+
+.additional_cell{
+    -fx-border-width: 0 1 1 1;
+    -fx-border-insets: 0 0 0 0;
+    -fx-border-color: black;
+}
+
+.additional_cell.lessfont{
+    -fx-font: normal normal 11px "微软雅黑";
+}
+
+/*表格头部*/
+.tab .column-header {
+    -fx-background-color: white;
+    -fx-border-width: 1;
+    -fx-border-insets: -0.5;
+    -fx-border-color: black;
+}
+
+/*表格右边的骑缝*/
+.rightp {
+    -fx-pref-width: 25;
+    -fx-alignment: center;
+}
+
+.rightp Label {
+    -fx-max-width: 10px;
+    -fx-wrap-text: true;
+    -fx-font: normal normal 10px "微软雅黑";
+}
+
+/*底部提示样式*/
+.btm-tip {
+    -fx-font: normal normal 10px "微软雅黑";
+}
+
+/*底部盖章的样式*/
+.stamp {
+    -fx-min-height: 25px;
+    -fx-max-height: 25px;
+    -fx-font: normal normal 12px "微软雅黑";
+    -fx-alignment: bottom-left;
+}
+
+.print_hit {
+    -fx-text-fill: red;
+}
+
+
+/*my_grid 自定义的表格框框*/
+.my_grid HBox,.my_grid VBox{
+    -fx-border-width: 1px;
+    -fx-border-color: black;
+    -fx-border-insets: -0.5;
+}
+
+.my_grid .gp-center{
+    -fx-alignment: center;
+}
+.my_grid .gp-center *{
+    -fx-alignment: center;
+}
+.my_grid .gp-centerleft{
+    -fx-alignment: center-left;
+}
+
+.smallfont{
+    -fx-font: normal normal 10px "微软雅黑";
+}
+
+.contentfont{
+    -fx-font: normal normal 11px "微软雅黑";
+}
+
+.bolder{
+    -fx-font-weight: bolder;
+}
+
+.annual_total{
+    -fx-font: bolder normal 14px "微软雅黑";
+}

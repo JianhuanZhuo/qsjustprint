@@ -1,0 +1,177 @@
+/*这个指向菜单的内容面板*/
+.content-pane{
+    -fx-background-color: white;
+    -fx-pref-width: 740px;
+    -fx-pref-height: 560px;
+    -fx-min-width: 600px;
+    -fx-min-height: 400px;
+
+    -fx-padding: 5px;
+}
+
+/*带有标题头的面板*/
+.title-pane{
+    -fx-border-color: #CCCCCC;
+    -fx-border-width: 1px;
+}
+
+.title-pane.padding-content{
+    -fx-padding: 5px;
+}
+
+.title-pane.spacing-content{
+    -fx-spacing: 5px;
+}
+
+.title-pane > .title-line {
+    -fx-background-color: #F5F8FD;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: #CCCCCC;
+
+    -fx-padding: 2px 5px;
+    -fx-spacing: 5px;
+
+    -fx-alignment: center;
+}
+
+.title-pane > .title-line > Label{
+    -fx-font: normal normal 16px "微软雅黑";
+}
+
+.title-pane > .title-line .btnable, .hbox-common > .btnable {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+
+.title-pane > .title-line .btnable Label{
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+
+
+.spacing-line{
+    -fx-padding: 2 5px;
+    -fx-spacing: 5px;
+
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+.image-button{
+    -fx-cursor: hand;
+}
+
+/*common*/
+.hbox-common{
+    -fx-spacing: 5px;
+    -fx-padding: 5px;
+    -fx-alignment: center;
+}
+
+.hbox-spacing {
+    -fx-spacing: 5px;
+    -fx-alignment: center-left;
+}
+
+.hbox-common .right-spacing{
+    -fx-padding: 5px 12px 5px 0px;
+}
+
+.vbox-common{
+    -fx-spacing: 5px;
+    -fx-padding: 5px;
+}
+
+.vbox-spacing {
+    -fx-spacing: 5px;
+}
+
+.vbox-lgap{
+    -fx-spacing: 20px;
+    -fx-padding: 10px;
+}
+
+.f14-common{
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+.f14b-common{
+    -fx-font: normal bold 14px "微软雅黑";
+}
+
+.tab-pane-common .tab-common{
+    -fx-font: normal normal 16px "微软雅黑";
+    /*-fx-padding: 5px;*/
+}
+
+.tab-pane-common .tab-content-common{
+    -fx-padding: 5px 10px 15px 10px;
+}
+
+.report-bottom{
+    -fx-alignment: bottom-right;
+}
+
+.attach-icon{
+    -fx-cursor: hand;
+    -fx-text-fill: #3366ff;
+    -fx-underline: true;
+}
+
+.hide {
+    visibility: hidden;
+}
+
+GridPane.infogp Label {
+    -fx-font: normal normal 12px "微软雅黑";
+}
+
+GridPane.infogp {
+    -fx-hgap: 10px;
+    -fx-vgap: 5px;
+    -fx-padding: 5px;
+}
+
+.image-size-common {
+    -fx-fit-to-height: 22px;
+    -fx-fit-to-width: 22px;
+}
+
+.bill-item {
+    -fx-border-width: 1px;
+    -fx-border-color: #666666;
+    -fx-border-insets: 10px;
+    -fx-padding: 10px;
+
+    -fx-pref-width: 600px;
+}
+
+/*自定义列表取消高亮*/
+.itemlist .list-cell:focused{
+    -fx-background-color: #e8faed;
+    -fx-text-fill: -fx-text-base-color;
+}
+
+/*.itemlist .list-cell:focused Label{*/
+    /*-fx-text-fill: -fx-text-base-color;*/
+/*}*/
+.itemlist .list-cell:focused *{
+    -fx-text-fill: -fx-text-base-color;
+}
+
+/*自定义表格取消隔离线*/
+.xxtable{
+    -fx-table-cell-border-color: transparent;
+}
+
+.xxtable .table-row-cell {
+    -fx-border-width: 1;
+}
+
+.select-list .list-cell :selected{
+
+}
