@@ -1,18 +1,23 @@
 /*这个指向菜单的内容面板*/
 .content-pane{
     -fx-background-color: white;
-    -fx-pref-width: 740px;
-    -fx-pref-height: 560px;
+    /*-fx-pref-width: 740px;*/
+    /*-fx-pref-height: 530px;*/
     -fx-min-width: 600px;
-    -fx-min-height: 400px;
+    -fx-min-height: 530px;
 
     -fx-padding: 5px;
 }
+
 
 /*带有标题头的面板*/
 .title-pane{
     -fx-border-color: #CCCCCC;
     -fx-border-width: 1px;
+}
+
+.title-pane.transparent-title{
+    -fx-border-width: 0px;
 }
 
 .title-pane.padding-content{
@@ -37,16 +42,33 @@
     -fx-alignment: center;
 }
 
+.title-pane.transparent-title>.title-line{
+    visibility: hidden;
+}
+
 .title-pane > .title-line > Label{
     -fx-font: normal normal 16px "微软雅黑";
 }
 
-.title-pane > .title-line .btnable, .hbox-common > .btnable {
+.btnable{
     -fx-background-color: transparent;
     -fx-cursor: hand;
     -fx-alignment: center;
 }
 
+.btnable Label{
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+.title-pane > .title-line .btnable, .hbox-common>.btnable {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.hbox-common{
+    /*-fx-background-color: white;*/
+}
 
 .title-pane > .title-line .btnable Label{
     -fx-font: normal normal 14px "微软雅黑";
@@ -79,6 +101,10 @@
 
 .hbox-common .right-spacing{
     -fx-padding: 5px 12px 5px 0px;
+}
+
+.box-center{
+    -fx-alignment: center;
 }
 
 .vbox-common{
@@ -174,4 +200,34 @@ GridPane.infogp {
 
 .select-list .list-cell :selected{
 
+}
+
+/* 画盒子样式 */
+.jh-box{
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-insets: -0.5px;
+}
+
+/* 大页面少按钮的样式 */
+.btn-common{
+    -fx-background-color: transparent;
+    -fx-border-color: #c9c1c2;
+    -fx-border-width: 1px;
+}
+
+.btn-common:hover {
+    -fx-text-fill: #41a9c9;
+    -fx-border-width: 1px;
+    -fx-border-color: #41a9c9;
+}
+
+/* 钱 */
+.money{
+    -fx-text-fill: #f60;
+    -fx-font-weight: bolder;
+}
+
+.money.big{
+    -fx-font-size: 22px;
 }

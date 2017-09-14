@@ -8,9 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.WritableImage;
+import javafx.util.Pair;
 import javafx.util.StringConverter;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -58,25 +57,6 @@ public class FXUtils {
                 n.getStyleClass().remove(style);
             }
         });
-    }
-
-    public static <T, R> R getMapper(SqlSessionFactory sqlSessionFactory, Class<T> clazz, ConsumerTR<T, R> consumer) throws Exception {
-        try (SqlSession session = sqlSessionFactory.openSession(true)) {
-            return consumer.accept(session.getMapper(clazz));
-        }
-    }
-
-
-    public static <T, P> void getMapper(SqlSessionFactory sqlSessionFactory, Class<T> clazz, ConsumerT<T, P> consumer, P p) throws Exception {
-        try (SqlSession session = sqlSessionFactory.openSession(true)) {
-            consumer.accept(session.getMapper(clazz), p);
-        }
-    }
-
-    public static <T, R, P> R getMapper(SqlSessionFactory sqlSessionFactory, Class<T> clazz, ConsumerTRP<T, R, P> consumer, P p) throws Exception {
-        try (SqlSession session = sqlSessionFactory.openSession(true)) {
-            return consumer.accept(session.getMapper(clazz), p);
-        }
     }
 
     @FunctionalInterface
@@ -213,7 +193,7 @@ public class FXUtils {
      */
     public static BigDecimal getDecimal(String str, BigDecimal defaultValue){
         try {
-            return new BigDecimal(str);
+            return new BigDecimal(str).stripTrailingZeros();
         }catch (Exception e){
             return defaultValue;
         }
@@ -264,7 +244,7 @@ public class FXUtils {
         if (d==null){
             return "0";
         }else {
-            return d.toString();
+            return d.stripTrailingZeros().toPlainString();
         }
     }
 
@@ -372,7 +352,7 @@ public class FXUtils {
         return new StringConverter<BigDecimal>() {
             @Override
             public String toString(BigDecimal o) {
-                return Objects.isNull(o) ? nullValue : ("" + o);
+                return Objects.isNull(o) ? nullValue : (o.stripTrailingZeros().toPlainString());
             }
             @Override
             public BigDecimal fromString(String s) {
@@ -414,7 +394,7 @@ public class FXUtils {
         return new StringConverter<BigDecimal>() {
             @Override
             public String toString(BigDecimal o) {
-                return Objects.isNull(o) ? "0%" : ("" + o.movePointRight(2)+"%");
+                return Objects.isNull(o) ? "0%" : ("" + o.movePointRight(2).stripTrailingZeros().toPlainString()+"%");
             }
             @Override
             public BigDecimal fromString(String s) {
@@ -509,5 +489,14 @@ public class FXUtils {
         }catch (Exception e){
             return new ArrayList<>(0);
         }
+    }
+
+    @SafeVarargs
+    public static Properties ps(Pair<Object, Object>... p){
+        Properties properties = new Properties();
+        for (Pair<Object, Object> aP : p) {
+            properties.put(aP.getKey(), aP.getValue());
+        }
+        return properties;
     }
 }

@@ -25,7 +25,8 @@ public class ImageLoadUtil {
     private static final Image preloadImage = new Image(VIEW_IMAGE_URL + "picture_preload.png");
     private static final Image loadfailImage = new Image(VIEW_IMAGE_URL + "picture_loadfail.png");
 
-    public static final String LOCAL_PROTOCOL_PREFIX="sqlocal";
+    public static final String LOCAL_PROTOCOL_PREFIX = "qslocal";
+    public static final String REMOTE_PROTOCOL_PREFIX = "qsremote";
 
     /**
      * 图像缓存
@@ -86,15 +87,7 @@ public class ImageLoadUtil {
             ObjectProperty<Image> resImage = new SimpleObjectProperty<>(preloadImage);
             Platform.runLater(() -> {
                 try {
-                    String prefix = LOCAL_PROTOCOL_PREFIX+":";
-                    if (imageUrl.startsWith(prefix)) {
-                        File targetFile = new File(imageUrl.substring(prefix.length())).getCanonicalFile();
-                        System.out.println("+_targetFile.toURI().toString()"+targetFile.toURI().toString());
-
-                        resImage.set(new Image(targetFile.toURI().toString()));
-                    } else {
-                        resImage.set(new Image(imageUrl));
-                    }
+                    resImage.set(new Image(imageUrl));
                 } catch (Exception e) {
                     e.printStackTrace();
                     resImage.set(loadfailImage);

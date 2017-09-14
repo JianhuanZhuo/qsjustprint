@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="root" styleClass="title-pane, vbox-common" stylesheets="@css/print.css,@css/common.css"
+      xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cn.keepfight.qsmanager.just.JustPrintController">
+    <VBox>
+        <HBox styleClass="hbox-common">
+            <HBox HBox.hgrow="ALWAYS">
+                <TextField fx:id="text_search" promptText="输入关键字查找"/>
+            </HBox>
+            <Button fx:id="btn_search" text="查找"/>
+        </HBox>
+        <ListView fx:id="list_printable" prefWidth="128.0" VBox.vgrow="ALWAYS"/>
+        <HBox styleClass="hbox-common">
+            <Button fx:id="btn_export" text="导出"/>
+            <Button fx:id="btn_import" text="导入"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btn_new" text="新增"/>
+            <Button fx:id="btn_copy" text="复制"/>
+        </HBox>
+    </VBox>
+    <Separator orientation="VERTICAL"/>
+    <VBox HBox.hgrow="ALWAYS" prefHeight="580.0" prefWidth="800.0">
+        <HBox styleClass="hbox-common">
+            <Label text="选择打印机："/>
+            <ChoiceBox fx:id="sel_printer" prefWidth="180"/>
+            <Label fx:id="lab_hit" styleClass="print_hit" text="打印不兼容！" HBox.hgrow="ALWAYS"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btn_print" text="打印"/>
+        </HBox>
+        <ScrollPane fx:id="printScrollPane" hbarPolicy="ALWAYS" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+            <!--<fx:include source="print_receipt.fxml"/>-->
+        </ScrollPane>
+        <HBox styleClass="hbox-common">
+            <Button fx:id="btn_del" text="删除"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btn_reset" text="重置"/>
+            <Button fx:id="btn_save" text="保存"/>
+        </HBox>
+    </VBox>
+</HBox>

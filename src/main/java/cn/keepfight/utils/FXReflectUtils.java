@@ -1,6 +1,5 @@
 package cn.keepfight.utils;
 
-import cn.keepfight.qsmanager.model.OrderItemModel;
 import cn.keepfight.qsmanager.model.ReceiptDetailModel;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -11,7 +10,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.function.Function;
 
 /**
  * FX 反射相关工具方法类

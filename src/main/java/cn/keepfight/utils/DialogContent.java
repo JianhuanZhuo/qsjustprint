@@ -23,7 +23,6 @@ public interface DialogContent<T> {
      * @param dialog 内容控制器所属的 dialog 对象
      */
     default void passDialog(Dialog<T> dialog){
-
     }
 
     /**
@@ -44,9 +43,13 @@ public interface DialogContent<T> {
      * 设置结果转换器，根据点击按钮的类型，返回结果
      */
     default T resultConverter(ButtonType type) {
-        if (!type.getButtonData().isCancelButton())
+        if (type.getButtonData().isCancelButton()){
+            // 通知已取消
+            cancel();
+            return null;
+        }else{
             return pack();
-        return null;
+        }
     }
 
     /**
@@ -56,4 +59,9 @@ public interface DialogContent<T> {
     default T pack(){
         return null;
     }
+
+    /**
+     * 取消按钮动作通知
+     */
+    default void cancel(){}
 }

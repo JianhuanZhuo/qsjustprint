@@ -8,6 +8,6 @@ import javafx.application.Application;
  */
 public class AppLoader {
     public static void main(String[] args) {
-        Application.launch(QSApp.class, args);
+        Application.launch(QSJustPrint.class, args);
     }
 }

@@ -1,5 +1,5 @@
 /*预览样式*/
-.preview TextField {
+.snap TextField {
     -fx-background-color: transparent;
 }
 
@@ -76,6 +76,7 @@
  ***************************************************************/
 .print_title {
     -fx-font: bolder bolder 24px "微软雅黑";
+    -fx-alignment: bottom-center;
 }
 
 .print_font {
@@ -203,4 +204,44 @@ GridPane.fitpack TextField {
 
 .annual_total{
     -fx-font: bolder normal 14px "微软雅黑";
+}
+
+.snap .drop{
+    -fx-background-color: transparent;
+}
+
+
+/***************************************************************
+ * 专用收据内容相关的设定
+ *
+ ***************************************************************/
+.bill.print_title{
+    -fx-border-width: 0 0 1px 0, 0 0 1px 0;
+    -fx-border-insets: 1px, 3px;
+    -fx-border-color: black, black;
+}
+
+.bill.print_title  TextField{
+    -fx-alignment: center;
+}
+
+.bill.print_title Label{
+    -fx-font: normal normal 22px "微软雅黑";
+}
+
+.serial-line{
+    -fx-font: normal normal 16px "微软雅黑";
+    -fx-padding: 5px;
+}
+
+.bill-content{
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 70px;
+    -fx-spacing: 5px;
+}
+
+.bill-content TextField{
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: black;
 }

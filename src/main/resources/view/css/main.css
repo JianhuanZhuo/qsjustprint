@@ -46,21 +46,25 @@
     -fx-pref-width: 230px;
     -fx-min-width: 230px;
 
-    -fx-fit-to-height: true;
+    /*-fx-fit-to-height: true;*/
     -fx-fit-to-width: true;
-
     -fx-hbar-policy: never;
     -fx-vbar-policy: never;
     /*-fx-hbar-policy: always;*/
     /*-fx-vbar-policy: always;*/
 }
 
+.menuScp>.viewport{
+    -fx-background-color: #2B3245;
+}
+
 .centerScp {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
     -fx-fit-to-width: true;
     -fx-fit-to-height: true;
 }
 
-.centerScp > .viewport {
+
+.transparent-title .centerScp > .viewport, .transparent-title .centerScp {
     -fx-background-color: transparent;
 }

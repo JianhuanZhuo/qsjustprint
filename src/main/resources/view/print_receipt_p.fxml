@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" styleClass="layout_holder, preview" stylesheets="@css/print.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.keepfight.qsmanager.print.PrintBillController">
+    <VBox styleClass="print_layout,layout_A5H">
+        <VBox VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER">
+                <HBox styleClass="print_title, fitpack, bill">
+                    <TextField fx:id="head" prefWidth="150.0" text="富华大厦" />
+                    <Label text="专用收据" />
+                </HBox>
+            </HBox>
+            <HBox>
+                <VBox HBox.hgrow="ALWAYS">
+                    <HBox styleClass="serial-line, fitpack">
+                        <TextField fx:id="mdate" alignment="CENTER_RIGHT" promptText="2" text="2017年12月31日" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label text="NO:" />
+                        <TextField fx:id="serial" prefWidth="130.0" text="170320006" />
+                    </HBox>
+                    <VBox styleClass="bill-content">
+                        <HBox alignment="CENTER">
+                            <Label text="今收到：" />
+                            <TextField fx:id="line1" HBox.hgrow="ALWAYS" />
+                        </HBox>
+                        <TextField fx:id="line2" />
+                        <TextField fx:id="line3" />
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0"
+                                                   prefWidth="90.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="10.0"
+                                                   prefWidth="288.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <Label text="金额（大写）："/>
+                            <Label text="合计：" GridPane.rowIndex="1"/>
+                            <TextField fx:id="text_supper" disable="true" GridPane.columnIndex="1"/>
+                            <TextField fx:id="text_total" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        </GridPane>
+                        <HBox alignment="CENTER_RIGHT">
+                            <Label text="收款单位（盖章）            " />
+                        </HBox>
+                    </VBox>
+                    <HBox styleClass="stamp">
+                        <Label text="核准" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label text="会计" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label text="记账" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label text="出纳" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label text="经手人" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                    </HBox>
+                </VBox>
+                <VBox styleClass="rightp">
+                    <Label text="白存根   红客户   黄记帐" VBox.vgrow="ALWAYS" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>

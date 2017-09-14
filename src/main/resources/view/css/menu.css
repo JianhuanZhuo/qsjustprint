@@ -2,7 +2,7 @@
     -fx-min-width: 230px;
     -fx-pref-width: 230px;
     -fx-min-height: 300px;
-    -fx-pref-height: 200px;
+    /*-fx-pref-height: 200px;*/
     -fx-background-color: #2B3245;
 
     -fx-alignment: top-center;
