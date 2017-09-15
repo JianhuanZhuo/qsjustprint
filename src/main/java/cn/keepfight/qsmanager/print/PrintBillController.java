@@ -5,8 +5,11 @@ import cn.keepfight.qsmanager.just.DeliveryItem;
 import cn.keepfight.qsmanager.just.DeliveryPrintModel;
 import cn.keepfight.qsmanager.just.PrintPaneController;
 import cn.keepfight.qsmanager.just.ReceiptPrintModel;
+import cn.keepfight.utils.FXUtils;
 import cn.keepfight.utils.FXWidgetUtil;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
@@ -43,8 +46,19 @@ public class PrintBillController extends PrintPaneController<ReceiptPrintModel> 
     @FXML
     private TextField text_total;
 
+    private BigDecimal total;
+    private long stamp;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        text_total.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                total = new BigDecimal(newValue);
+                text_supper.setText(FXUtils.getSupperNum(total));
+            }catch (Exception e){
+                text_supper.setText(FXUtils.getSupperNum(new BigDecimal(0)));
+            }
+        });
     }
 
     @Override
@@ -59,86 +73,36 @@ public class PrintBillController extends PrintPaneController<ReceiptPrintModel> 
 
     @Override
     public ReceiptPrintModel pack() {
-        return null;
+        ReceiptPrintModel model = new ReceiptPrintModel();
+        model.setHead(head.getText());
+        model.setSerial(serial.getText());
+        model.setStamp(stamp, false);
+        model.setDate(mdate.getText());
+        model.setLine1(line1.getText());
+        model.setLine2(line2.getText());
+        model.setLine3(line3.getText());
+        model.setTotal(total.movePointRight(2).intValue());
+        return model;
     }
 
     @Override
     public ReceiptPrintModel newBill() {
         ReceiptPrintModel model = new ReceiptPrintModel();
         model.setSerial(PropertiesServer.getInstance().getNumStr());
-        model.setStamp(System.currentTimeMillis());
+        model.setStamp(System.currentTimeMillis(), true);
         return model;
     }
 
     @Override
     public void fill(ReceiptPrintModel data) {
-    }
+        head.setText(data.getHead());
+        mdate.setText(data.getDate());
+        serial.setText(data.getSerial());
+        line1.setText(data.getLine1());
+        line2.setText(data.getLine2());
+        line3.setText(data.getLine3());
+        text_total.setText(new BigDecimal(data.getTotal()).movePointLeft(2).toPlainString());
 
-//    @Override
-//    public void fill(OrderModelFull datas) {
-//        this.datas = datas;
-//
-//        serial.setText(datas.getSerial());
-//
-//        // 填充客户信息
-//        try {
-//            CustomModel c = QSApp.service.getCustomService().selectAllByID(datas.getCid());
-//            cust.setText(c.getNamefull());
-//            addr.setText(c.getAddr());
-//            phone.setText(c.getPhone());
-//
-//            // 加载默认记忆选项并添加默认下拉
-//            FXWidgetUtil.defaultList(
-//                    new Pair<>(addr, "custom.info.addr."+c.getSerial())
-//            );
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        // 填写其他信息
-//        maker.setText(ConfigUtil.load("fxapp.properties").getProperty("print.maker"));
-//        mdate.setText(FXUtils.stampToDate(System.currentTimeMillis()));
-//
-//        // 添加为表格
-//        List<DeliveryItem> items = datas.getOrderItemModels().stream().map(DeliveryItem::new).collect(Collectors.toList());
-//        for (int i=0; i<SIZE_PER_PAGE-datas.getOrderItemModels().size(); i++){
-//            items.add(new DeliveryItem());
-//        }
-//        table.getItems().setAll(items);
-//
-//        // 添加表格可选的菜单下拉
-//        try {
-//            List<ProductModel> plist = QSApp.service.getOrderFavorService().selectAll(datas.getCid());
-//            productList = plist
-//                    .stream()
-//                    .collect(Collectors.toMap(p->p.getSerial()+"-"+p.getName(), p->p));
-//            List<String> ss = plist.stream().map(p->p.getSerial()+"-"+p.getName()).collect(Collectors.toList());
-//            ss.add(null);
-//            name.setCellFactory(ChoiceBoxTableCell.forTableColumn(ss.toArray(new String[ss.size()])));
-//        } catch (Exception e) {
-//            //@TODO 这里如果有毛病了，那么该怎么处理？
-//            e.printStackTrace();
-//            productList = new HashMap<>();
-//        }
-//    }
-//    public void autoCalculate() {
-//        Optional<BigDecimal> t = table.getItems().stream()
-//                .peek(x -> {
-//                    BigDecimal d = x.getTakeTotal();
-//                    //@TODO 搞完回来弄
-//                    x.yuan_u4.set(FXUtils.getNumAt(d, 5, true));
-//                    x.yuan_u3.set(FXUtils.getNumAt(d, 4, true));
-//                    x.yuan_u2.set(FXUtils.getNumAt(d, 3, true));
-//                    x.yuan_u1.set(FXUtils.getNumAt(d, 2, true));
-//                    x.yuan.set(FXUtils.getNumAt(d, 1, true));
-//                    x.yuan_d1.set(FXUtils.getNumAt(d, 1, false));
-//                    x.yuan_d2.set(FXUtils.getNumAt(d, 2, false));
-//                })
-//                .map(OrderItemModel::getTakeTotal)
-//                .reduce(BigDecimal::add);
-//        String text = "0";
-//        if (t.isPresent()) {
-//            text = t.get().stripTrailingZeros().toPlainString();
-//        }
-//        all_total.setText(text);
-//    }
+        stamp = data.getStamp();
+    }
 }

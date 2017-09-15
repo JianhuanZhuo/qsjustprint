@@ -221,6 +221,14 @@ GridPane.fitpack TextField {
     -fx-border-color: black, black;
 }
 
+.bill-font Label{
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
+.bill-font TextField{
+    -fx-font: normal normal 14px "微软雅黑";
+}
+
 .bill.print_title  TextField{
     -fx-alignment: center;
 }
@@ -230,15 +238,13 @@ GridPane.fitpack TextField {
 }
 
 .serial-line{
-    -fx-font: normal normal 16px "微软雅黑";
     -fx-padding: 5px;
 }
 
 .bill-content{
     -fx-border-color: black;
     -fx-border-width: 1px;
-    -fx-padding: 10px 70px;
-    -fx-spacing: 5px;
+    -fx-padding: 5px 70px;
 }
 
 .bill-content TextField{

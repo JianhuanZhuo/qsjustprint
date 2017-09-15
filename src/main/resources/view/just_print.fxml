@@ -20,6 +20,7 @@
                 <TextField fx:id="text_search" promptText="输入关键字查找"/>
             </HBox>
             <Button fx:id="btn_search" text="查找"/>
+            <Button fx:id="btn_all" text="全部"/>
         </HBox>
         <ListView fx:id="list_printable" prefWidth="128.0" VBox.vgrow="ALWAYS"/>
         <HBox styleClass="hbox-common">

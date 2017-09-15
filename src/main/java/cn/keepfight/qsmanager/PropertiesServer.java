@@ -34,4 +34,8 @@ public class PropertiesServer {
         int year = new Timestamp(System.currentTimeMillis()).toLocalDateTime().toLocalDate().getYear();
         return String.format("00%d%05d", year, getNum());
     }
+
+    public void storeToFile(){
+        ConfigUtil.store("server.properties", ps);
+    }
 }

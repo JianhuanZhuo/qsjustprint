@@ -11,6 +11,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
 import javafx.print.PageLayout;
 import javafx.print.Printer;
@@ -31,6 +33,7 @@ public class JustPrintController implements Initializable {
 
     public TextField text_search;
     public Button btn_search;
+    public Button btn_all;
     public Button btn_export;
     public Button btn_import;
     public Button btn_new;
@@ -61,18 +64,16 @@ public class JustPrintController implements Initializable {
             @Override
             protected void updateItem(Printable item, boolean empty) {
                 super.updateItem(item, empty);
+                setText("");
                 if (item != null && !empty) {
                     setText(item.getTitle());
                 }
             }
         });
         list_printable.setItems(BillListServer.getInstance().getPrintableList());
-        list_printable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Printable>() {
-            @Override
-            public void changed(ObservableValue<? extends Printable> observable, Printable oldValue, Printable newValue) {
-                if (newValue!=null){
-                    loadData(newValue);
-                }
+        list_printable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue!=null){
+                loadData(newValue);
             }
         });
 
@@ -83,15 +84,37 @@ public class JustPrintController implements Initializable {
                 .or(typeProperty.isNull())
                 .or(printing));
 
+        btn_save.disableProperty().bind(printScrollPane.contentProperty().isNull()
+                .or(typeProperty.isNull())
+                .or(printing)
+                .or(list_printable.getSelectionModel().selectedItemProperty().isNull()));
+
+        btn_del.disableProperty().bind(list_printable.getSelectionModel().selectedItemProperty().isNull());
+        btn_copy.disableProperty().bind(list_printable.getSelectionModel().selectedItemProperty().isNull());
+        btn_reset.disableProperty().bind(list_printable.getSelectionModel().selectedItemProperty().isNull());
+        btn_search.disableProperty().bind(text_search.textProperty().isEmpty());
+
         // 打印动作
         btn_print.setOnAction(event -> printAction());
-
         btn_new.setOnAction(event -> newBill());
+        btn_save.setOnAction(event -> {
+            Printable p = typeProperty.get().getController().pack();
+            BillListServer.getInstance().replacePrintable(list_printable.getSelectionModel().getSelectedItem(), p);
+        });
+
+        btn_del.setOnAction(event -> BillListServer.getInstance().removePrintable(list_printable.getSelectionModel().getSelectedItem()));
+        btn_copy.setOnAction(event -> BillListServer.getInstance().addPritable(list_printable.getSelectionModel().getSelectedItem().cloneBill()));
+        btn_reset.setOnAction(event -> loadData(list_printable.getSelectionModel().getSelectedItem()));
+        btn_search.setOnAction(event -> searchFor(text_search.getText()));
+        text_search.setOnAction(event -> searchFor(text_search.getText()));
+        btn_all.setOnAction(event -> list_printable.setItems(BillListServer.getInstance().getPrintableList()));
 
         checkSupport();
     }
 
     public void changePrintType(QSPrintType type) {
+        System.out.println(type);
+        System.out.println(type.getController());
         typeProperty.set(type);
         printScrollPane.setContent(type.getController().getRoot());
     }
@@ -183,7 +206,14 @@ public class JustPrintController implements Initializable {
         Optional<QSPrintType> result = dialog.showAndWait();
         result.ifPresent(letter -> {
             //@TODO 待刷新
-            BillListServer.getInstance().addPritable(letter.getController().newBill());
+            Printable p = letter.getController().newBill();
+            System.out.println("letter.getController().newBill:"+p.getType());
+            BillListServer.getInstance().addPritable(p);
+            list_printable.getSelectionModel().select(p);
         });
+
+    }
+    private void searchFor(String s){
+        list_printable.setItems(new FilteredList<>(BillListServer.getInstance().getPrintableList(), (x) -> x.lookup(s)));
     }
 }

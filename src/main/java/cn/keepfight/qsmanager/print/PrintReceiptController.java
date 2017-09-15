@@ -123,7 +123,7 @@ public class PrintReceiptController extends PrintPaneController<DeliveryPrintMod
     public DeliveryPrintModel newBill() {
         DeliveryPrintModel model = new DeliveryPrintModel();
         model.setSerial(PropertiesServer.getInstance().getNumStr());
-        model.setStamp(System.currentTimeMillis());
+        model.setStamp(System.currentTimeMillis(), true);
         model.setType(QSPrintType.RECEIPT);
         return model;
     }

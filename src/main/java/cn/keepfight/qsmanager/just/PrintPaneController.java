@@ -32,4 +32,9 @@ public abstract class PrintPaneController<T extends Printable> implements Initia
     public double getMargin(){
         return 30;
     }
+
+    @Override
+    public String toString() {
+        return getTitle();
+    }
 }

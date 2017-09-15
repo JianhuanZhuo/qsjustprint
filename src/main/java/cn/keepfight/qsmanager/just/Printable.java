@@ -11,4 +11,12 @@ public interface Printable {
     String getTitle();
 
     QSPrintType getType();
+
+    void setStamp(long stamp, boolean applyStamp);
+
+    long getStamp();
+
+    Printable cloneBill();
+
+    boolean lookup(String s);
 }

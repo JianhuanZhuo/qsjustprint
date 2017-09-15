@@ -3,13 +3,14 @@ package cn.keepfight.qsmanager.just;
 import cn.keepfight.utils.FXUtils;
 import javafx.beans.property.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * 送货单单元 Item
  * Created by tom on 2017/9/13.
  */
-public class DeliveryItem{
+public class DeliveryItem implements Serializable{
     private StringProperty product = new SimpleStringProperty();
     private StringProperty detail = new SimpleStringProperty();
     private StringProperty unit = new SimpleStringProperty();
@@ -211,5 +212,25 @@ public class DeliveryItem{
 
     public void setYuan_d2(int yuan_d2) {
         this.yuan_d2.set(yuan_d2);
+    }
+
+
+
+    public DeliveryItem cloneItem() {
+        DeliveryItem res = new DeliveryItem();
+        res.setProduct(product.get());
+        res.setDetail(detail.get());
+        res.setUnit(unit.get());
+        res.setNote(note.get());
+        res.setPrice(price.get());
+        res.setNum(num.get());
+        res.setYuan_u4(yuan_u4.get());
+        res.setYuan_u3(yuan_u3.get());
+        res.setYuan_u2(yuan_u2.get());
+        res.setYuan_u1(yuan_u1.get());
+        res.setYuan(yuan.get());
+        res.setYuan_d1(yuan_d1.get());
+        res.setYuan_d2(yuan_d2.get());
+        return res;
     }
 }

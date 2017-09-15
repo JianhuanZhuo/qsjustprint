@@ -35,5 +35,13 @@ public class QSJustPrint extends Application {
         primaryStage.setScene(new Scene(loader.load()));
         justPrintController = loader.getController();
         primaryStage.show();
+
+        BillListServer.getInstance().loadFromFile();
+    }
+
+    @Override
+    public void stop(){
+        BillListServer.getInstance().storeToFile();
+        PropertiesServer.getInstance().storeToFile();
     }
 }

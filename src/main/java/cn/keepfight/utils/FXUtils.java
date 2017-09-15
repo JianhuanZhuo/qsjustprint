@@ -26,6 +26,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * FX 工具集合类
@@ -48,8 +50,9 @@ public class FXUtils {
 
     /**
      * 删除节点样式，由于 FXML 中样式的存储以 List 存储，所以可能导致多次存入相同样式的可能
+     *
      * @param style 指定需要删除的样式
-     * @param node 需要进行样式删除操作操作的节点列表
+     * @param node  需要进行样式删除操作操作的节点列表
      */
     public static void delStyle(String style, Node... node) {
         Arrays.stream(node).forEach(n -> {
@@ -96,11 +99,11 @@ public class FXUtils {
     public static void limitPattern(TextInputControl textInputControl, String pattern, String defaultStr) {
         textInputControl.setText(defaultStr);
         textInputControl.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-            if (!newValue && textInputControl.getText()!=null) { //when focus lost
+            if (!newValue && textInputControl.getText() != null) { //when focus lost
                 if (!textInputControl.getText().trim().matches(pattern)) {
                     //when it not matches the pattern (1.0 - 6.0) set the textField empty
                     textInputControl.setText(defaultStr);
-                }else {
+                } else {
                     textInputControl.setText(textInputControl.getText().trim());
                 }
             }
@@ -109,9 +112,10 @@ public class FXUtils {
 
     /**
      * 纯数字限制
-     * @param inte             最大整数限制
-     * @param deci             最大小数限制
-     * @param allowNega        是否允许负数输入
+     *
+     * @param inte      最大整数限制
+     * @param deci      最大小数限制
+     * @param allowNega 是否允许负数输入
      */
     public static void limitNum(TextInputControl textInputControl, int inte, int deci, boolean allowNega) {
         limitNum(textInputControl, inte, deci, allowNega, "0");
@@ -119,9 +123,10 @@ public class FXUtils {
 
     /**
      * 纯数字限制
-     * @param inte             最大整数限制
-     * @param deci             最大小数限制
-     * @param allowNega        是否允许负数输入
+     *
+     * @param inte      最大整数限制
+     * @param deci      最大小数限制
+     * @param allowNega 是否允许负数输入
      */
     public static void limitNum(TextInputControl textInputControl, int inte, int deci, boolean allowNega, String defaultValue) {
         if (inte < 1) {
@@ -139,11 +144,12 @@ public class FXUtils {
 
 //    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 //    private static SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     /**
      * 转换时间戳为时期字符串
      */
-    public static String stampToDate(Long stamp, String pattern){
-        if (stamp==null){
+    public static String stampToDate(Long stamp, String pattern) {
+        if (stamp == null) {
             return "";
         }
         return stampToLocalDate(stamp).format(DateTimeFormatter.ofPattern(pattern));
@@ -152,15 +158,22 @@ public class FXUtils {
     /**
      * 转换时间戳为时期字符串
      */
-    public static String stampToDate(Long stamp){
+    public static String stampToDate(Long stamp) {
         return stampToDate(stamp, "yyyy-MM-dd");
+    }
+
+    /**
+     * 转换时间戳为时期字符串
+     */
+    public static String stampToDateCH(Long stamp) {
+        return stampToDate(stamp, "yyyy年MM月dd日");
     }
 
     /**
      * 转换时间戳为日期时间字符串
      */
-    public static String stampToDateTime(Long stamp){
-        if (stamp==null){
+    public static String stampToDateTime(Long stamp) {
+        if (stamp == null) {
             return "";
         }
         return stampToLocalDateTime(stamp).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -169,8 +182,8 @@ public class FXUtils {
     /**
      * 转时间戳为本地时间对象
      */
-    public static LocalDate stampToLocalDate(Long stamp){
-        if (stamp==null){
+    public static LocalDate stampToLocalDate(Long stamp) {
+        if (stamp == null) {
             stamp = System.currentTimeMillis();
         }
         return new Timestamp(stamp).toLocalDateTime().toLocalDate();
@@ -179,8 +192,8 @@ public class FXUtils {
     /**
      * 转时间戳为本地时间对象
      */
-    public static LocalDateTime stampToLocalDateTime(Long stamp){
-        if (stamp==null){
+    public static LocalDateTime stampToLocalDateTime(Long stamp) {
+        if (stamp == null) {
             stamp = System.currentTimeMillis();
         }
         return new Timestamp(stamp).toLocalDateTime();
@@ -188,13 +201,14 @@ public class FXUtils {
 
     /**
      * 带默认值的分数字符串转换，若转换错误则返回默认值
-     * @param str 需要转换的分数
+     *
+     * @param str          需要转换的分数
      * @param defaultValue 默认值
      */
-    public static BigDecimal getDecimal(String str, BigDecimal defaultValue){
+    public static BigDecimal getDecimal(String str, BigDecimal defaultValue) {
         try {
             return new BigDecimal(str).stripTrailingZeros();
-        }catch (Exception e){
+        } catch (Exception e) {
             return defaultValue;
         }
     }
@@ -202,31 +216,34 @@ public class FXUtils {
     /**
      * 带默认值的分数字符串转换，若转换错误则返回默认值
      * 重载方法默认值为0
+     *
      * @param str 需要转换的分数
      */
-    public static BigDecimal getDecimal(String str){
+    public static BigDecimal getDecimal(String str) {
         return getDecimal(str, new BigDecimal(0));
     }
 
     /**
      * 带默认值的分数字符串转换，若转换错误则返回默认值
      * 重载方法默认值为0
+     *
      * @param text 包含需要转换的分数的文本控件
      */
-    public static BigDecimal getDecimal(TextField text){
+    public static BigDecimal getDecimal(TextField text) {
         return getDecimal(text.getText(), new BigDecimal(0));
     }
 
 
     /**
      * 带默认值的长整形数字符串转换，若转换错误则返回默认值
-     * @param str 需要转换的长整形字符串
+     *
+     * @param str          需要转换的长整形字符串
      * @param defaultValue 默认值
      */
-    public static long getLong(String str, long defaultValue){
+    public static long getLong(String str, long defaultValue) {
         try {
             return Long.valueOf(str);
-        }catch (Exception e){
+        } catch (Exception e) {
             return defaultValue;
         }
     }
@@ -234,22 +251,24 @@ public class FXUtils {
     /**
      * 带默认值的长整形数字符串转换，若转换错误则返回默认值
      * 重载方法，默认为0
+     *
      * @param str 需要转换的长整形字符串
      */
-    public static long getLong(String str){
+    public static long getLong(String str) {
         return getLong(str, 0);
     }
 
-    public static String decimalStr(BigDecimal d){
-        if (d==null){
+    public static String decimalStr(BigDecimal d) {
+        if (d == null) {
             return "0";
-        }else {
+        } else {
             return d.stripTrailingZeros().toPlainString();
         }
     }
 
     /**
      * 将指定路径的本地图片进行另存为，注意是本地图片，其中图片名并不对应上
+     *
      * @param picUrl 图片的路径，如 D:/pic/xx.png
      * @return 包装后的图片URL，也就是 file:D:/xx/xx.png，或者 http:/xxx/xx/xx.png
      */
@@ -257,7 +276,7 @@ public class FXUtils {
         Path source = Paths.get(picUrl);
         String genFileName = generateName(source.getFileName().toString());
         File targetFile = new File("./pic/" + genFileName).getCanonicalFile();
-        while (targetFile.exists()){
+        while (targetFile.exists()) {
             genFileName = generateName(genFileName);
             targetFile = new File("./pic/" + genFileName).getCanonicalFile();
         }
@@ -270,21 +289,21 @@ public class FXUtils {
     /**
      * 随机修改文件名
      */
-    public static String generateName(String source){
-        return "gen"+(source+System.currentTimeMillis()).hashCode()+ source.substring(source.lastIndexOf('.'));
+    public static String generateName(String source) {
+        return "gen" + (source + System.currentTimeMillis()).hashCode() + source.substring(source.lastIndexOf('.'));
     }
 
     /**
      * 将指定图片写入到文件中，并返回这个文件名
      */
     public static String writeImage(WritableImage image) throws IOException {
-        String genFileName = "snapshot"+System.currentTimeMillis()+".png";
+        String genFileName = "snapshot" + System.currentTimeMillis() + ".png";
         File targetFile = new File("./pic/" + genFileName).getCanonicalFile();
-        while (targetFile.exists()){
+        while (targetFile.exists()) {
             genFileName = generateName(genFileName);
             targetFile = new File("./pic/" + genFileName).getCanonicalFile();
         }
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", targetFile);
+        ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", targetFile);
         return targetFile.getAbsolutePath();
     }
 
@@ -292,9 +311,9 @@ public class FXUtils {
      * 将指定图片写入到文件中，并返回这个文件名相对路径
      */
     public static String writeImageCanonical(WritableImage image) throws IOException {
-        String filePath = "./pic/snapshot"+System.currentTimeMillis()+".png";
+        String filePath = "./pic/snapshot" + System.currentTimeMillis() + ".png";
         File targetFile = new File(filePath).getCanonicalFile();
-        while (targetFile.exists()){
+        while (targetFile.exists()) {
             filePath = "./pic/" + generateName(filePath);
             targetFile = new File(filePath).getCanonicalFile();
         }
@@ -305,21 +324,22 @@ public class FXUtils {
     /**
      * 构造转换器，在传入为 null 对象时使用空字符串作为转换返回值
      */
-    public static <T> StringConverter<T> converter(Function<T, String> convert){
+    public static <T> StringConverter<T> converter(Function<T, String> convert) {
         return converter(convert, "");
     }
 
     /**
      * 构造转换器
+     *
      * @param nullValue 在传入对象为空时，默认的转换值
      */
-    public static <T> StringConverter<T> converter(Function<T, String> convert, String nullValue){
+    public static <T> StringConverter<T> converter(Function<T, String> convert, String nullValue) {
         return new StringConverter<T>() {
             @Override
             public String toString(T object) {
-                if (Objects.isNull(object)){
+                if (Objects.isNull(object)) {
                     return nullValue;
-                }else {
+                } else {
                     return convert.apply(object);
                 }
             }
@@ -331,11 +351,12 @@ public class FXUtils {
         };
     }
 
-    public static<T> void bindProperties(ObjectProperty<T> p, Supplier<T> s, Observable... os){
+    public static <T> void bindProperties(ObjectProperty<T> p, Supplier<T> s, Observable... os) {
         p.bind(new ObjectBinding<T>() {
             {
                 bind(os);
             }
+
             @Override
             protected T computeValue() {
                 return s.get();
@@ -346,14 +367,16 @@ public class FXUtils {
 
     /**
      * 分数转换器
+     *
      * @param nullValue 当输入为 NULL 时，使用的默认输出
      */
-    public static StringConverter<BigDecimal> decimalConverter(String nullValue){
+    public static StringConverter<BigDecimal> decimalConverter(String nullValue) {
         return new StringConverter<BigDecimal>() {
             @Override
             public String toString(BigDecimal o) {
                 return Objects.isNull(o) ? nullValue : (o.stripTrailingZeros().toPlainString());
             }
+
             @Override
             public BigDecimal fromString(String s) {
                 try {
@@ -367,14 +390,16 @@ public class FXUtils {
 
     /**
      * 整数转换器
+     *
      * @param nullValue 当输入为 NULL 时，使用的默认输出
      */
-    public static StringConverter<Integer> integerConverter(String nullValue){
+    public static StringConverter<Integer> integerConverter(String nullValue) {
         return new StringConverter<Integer>() {
             @Override
             public String toString(Integer o) {
                 return Objects.isNull(o) ? nullValue : o.toString();
             }
+
             @Override
             public Integer fromString(String s) {
                 try {
@@ -390,12 +415,13 @@ public class FXUtils {
     /**
      * 税率转换器
      */
-    public static StringConverter<BigDecimal> rateConverter(){
+    public static StringConverter<BigDecimal> rateConverter() {
         return new StringConverter<BigDecimal>() {
             @Override
             public String toString(BigDecimal o) {
-                return Objects.isNull(o) ? "0%" : ("" + o.movePointRight(2).stripTrailingZeros().toPlainString()+"%");
+                return Objects.isNull(o) ? "0%" : ("" + o.movePointRight(2).stripTrailingZeros().toPlainString() + "%");
             }
+
             @Override
             public BigDecimal fromString(String s) {
                 try {
@@ -409,14 +435,16 @@ public class FXUtils {
 
     /**
      * 整数转换器
+     *
      * @param nullValue 当输入为 NULL 时，使用的默认输出
      */
-    public static StringConverter<Long> longConverter(String nullValue){
+    public static StringConverter<Long> longConverter(String nullValue) {
         return new StringConverter<Long>() {
             @Override
             public String toString(Long o) {
                 return Objects.isNull(o) ? nullValue : o.toString();
             }
+
             @Override
             public Long fromString(String s) {
                 try {
@@ -432,12 +460,13 @@ public class FXUtils {
     /**
      * 时间搓转换器
      */
-    public static StringConverter<Long> timestampConverter(){
+    public static StringConverter<Long> timestampConverter() {
         return new StringConverter<Long>() {
             @Override
             public String toString(Long o) {
                 return Objects.isNull(o) ? "" : FXUtils.stampToDate(o);
             }
+
             @Override
             public Long fromString(String s) {
                 try {
@@ -449,50 +478,86 @@ public class FXUtils {
         };
     }
 
-    public static int getNumAt(BigDecimal decimal, int place, boolean left){
-        if (decimal==null){
+    public static int getNumAt(BigDecimal decimal, int place, boolean left) {
+        if (decimal == null) {
             throw new RuntimeException("decimal is null!");
         }
         String ds = decimal.toString();
         int p = ds.indexOf(".");
-        int kp = left?p-place:p+place;
+        if (p == -1) {
+            p = ds.length();
+        }
+        int kp = left ? p - place : p + place;
         try {
-            return Integer.valueOf(""+ds.charAt(kp));
-        }catch (Exception e){
+            return Integer.valueOf("" + ds.charAt(kp));
+        } catch (Exception e) {
             return 0;
         }
     }
 
+    public static String getSupperNumAt(int num) {
+        String[] s = {"零", "壹","贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
+        return "" + s[num];
+    }
+
+    public static String getSupperUnit(int place, boolean left) {
+        String[] l = {"元", "拾", "佰", "仟", "万"};
+        String[] r = {"角", "分", "毫"};
+        return left ? l[place-1] : r[place-1];
+    }
+
+    public static String getSupperNum(BigDecimal decimal) {
+        String left = IntStream
+                .range(1, 6)
+                .boxed()
+                .sorted(Collections.reverseOrder())
+                .mapToInt(x -> x)
+                .mapToObj(x -> new Pair<>(x, getNumAt(decimal, x, true)))
+                .map(x -> " " + getSupperNumAt(x.getValue()) + " " + getSupperUnit(x.getKey(), true))
+                .collect(Collectors.joining());
+        String right = IntStream
+                .range(1, 3)
+                .mapToObj(x -> new Pair<>(x, getNumAt(decimal, x, false)))
+                .map(x -> " " + getSupperNumAt(x.getValue()) + " " + getSupperUnit(x.getKey(), false))
+                .collect(Collectors.joining());
+        return left + right;
+    }
+
+    static IntStream revRange(int from, int to) {
+        return IntStream.range(from, to).map(i -> to - i + from - 1);
+    }
+
     /**
      * 对字符串进行包含了对 s 字符串的空处理，转化的异常处理，去除无效切分值
-     * @param s 需要被切分的字符串
-     * @param regex 切分的正则式
+     *
+     * @param s       需要被切分的字符串
+     * @param regex   切分的正则式
      * @param convert 转换函数
      * @return 切分后的列表
      */
-    public static<T> List<T> split(String s, String regex, Function<String, T> convert){
+    public static <T> List<T> split(String s, String regex, Function<String, T> convert) {
 //        if (s==null || s.trim().equals("")){
 //            return new ArrayList<>(0);
 //        }
 
         try {
             return Arrays.stream(s.split(regex))
-                    .map(x->{
+                    .map(x -> {
                         try {
                             return convert.apply(x);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             return null;
                         }
                     })
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
-        }catch (Exception e){
+        } catch (Exception e) {
             return new ArrayList<>(0);
         }
     }
 
     @SafeVarargs
-    public static Properties ps(Pair<Object, Object>... p){
+    public static Properties ps(Pair<Object, Object>... p) {
         Properties properties = new Properties();
         for (Pair<Object, Object> aP : p) {
             properties.put(aP.getKey(), aP.getValue());

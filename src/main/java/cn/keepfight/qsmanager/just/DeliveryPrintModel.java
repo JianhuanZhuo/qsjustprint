@@ -1,8 +1,10 @@
 package cn.keepfight.qsmanager.just;
 
+import cn.keepfight.qsmanager.PropertiesServer;
 import cn.keepfight.qsmanager.print.QSPrintType;
 import cn.keepfight.utils.FXUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * 送货单表模型，全模型
  * Created by tom on 2017/6/6.
  */
-public class DeliveryPrintModel implements Printable {
+public class DeliveryPrintModel implements Printable, Serializable {
     private String head = "";
     private String serial;
     private String my_phone;
@@ -22,13 +24,13 @@ public class DeliveryPrintModel implements Printable {
     private String maker;
     private String date_delivery;
     private long stamp;
-    private QSPrintType type;
+    private int type;
 
     private List<DeliveryItem> items = new ArrayList<>();
 
     @Override
     public String getTitle() {
-        return date_delivery+"-"+head;
+        return date_delivery + "-" + head;
     }
 
     public String getHead() {
@@ -91,6 +93,10 @@ public class DeliveryPrintModel implements Printable {
         return date_delivery;
     }
 
+    public void setDate_delivery(String date_delivery) {
+        this.date_delivery = date_delivery;
+    }
+
     public List<DeliveryItem> getItems() {
         return items;
     }
@@ -119,16 +125,59 @@ public class DeliveryPrintModel implements Printable {
         return stamp;
     }
 
-    public void setStamp(long stamp) {
-        this.stamp = stamp;
-        this.date_delivery = FXUtils.stampToDate(stamp);
-    }
 
     public QSPrintType getType() {
-        return type;
+        System.out.println("type is :"+type);
+        switch (type){
+            case 1: return QSPrintType.RECEIPT;
+            case 2: return QSPrintType.DELIVERY;
+            case 0: return QSPrintType.RECEIPT_P;
+        }
+        return null;
     }
 
-    public void setType(QSPrintType type) {
-        this.type = type;
+    @Override
+    public void setStamp(long stamp, boolean applyStamp) {
+        this.stamp = stamp;
+        if (applyStamp) {
+            date_delivery = FXUtils.stampToDateCH(stamp);
+        }
+    }
+
+    public void setType(QSPrintType t) {
+        switch (t){
+            case DELIVERY: this.type = 2; break;
+            case RECEIPT: this.type = 1; break;
+            case RECEIPT_P: this.type = 0; break;
+        }
+    }
+
+
+    @Override
+    public Printable cloneBill() {
+        DeliveryPrintModel res = new DeliveryPrintModel();
+        res.head = head;
+        res.serial = PropertiesServer.getInstance().getNumStr();
+        res.my_phone = my_phone;
+        res.my_addr = my_addr;
+        res.cust_name = cust_name;
+        res.cust_addr = cust_addr;
+        res.cust_phone = cust_phone;
+        res.cust_contract = cust_contract;
+        res.maker = maker;
+        res.date_delivery = date_delivery;
+        res.stamp = System.currentTimeMillis();
+
+        for (DeliveryItem i : items) {
+            res.items.add(i.cloneItem());
+        }
+
+        return res;
+    }
+
+    @Override
+    public boolean lookup(String s) {
+        String content = head+serial+my_phone+my_addr+cust_name+cust_addr+cust_phone+cust_contract+maker+date_delivery;
+        return content.contains(s);
     }
 }
