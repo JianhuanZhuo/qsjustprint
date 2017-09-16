@@ -39,7 +39,7 @@
                 <TextField fx:id="addr" text="中山市升辉南工业区腾业路6号" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
                 <Label text="联系电话：" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                 <TextField fx:id="phone" text="0760-23139689" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                <Label text="制单人员：" GridPane.columnIndex="4" GridPane.rowIndex="0" />
+                <!--<Label text="制单人员：" GridPane.columnIndex="4" GridPane.rowIndex="0" />-->
                 <Label text="收款日期：" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                 <!--<TextField fx:id="maker" text="张制单员" GridPane.columnIndex="5" GridPane.rowIndex="0" />-->
                 <TextField fx:id="mdate" text="2017-01-12" GridPane.columnIndex="5" GridPane.rowIndex="1" />

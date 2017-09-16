@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="root" styleClass="layout_holder, preview" stylesheets="@css/print.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.keepfight.qsmanager.print.PrintBillController">
-    <VBox styleClass="print_layout,layout_A5H">
+    <VBox styleClass="print_layout,layout_A4_3">
         <VBox VBox.vgrow="ALWAYS">
             <HBox alignment="CENTER">
                 <HBox styleClass="print_title, fitpack, bill">

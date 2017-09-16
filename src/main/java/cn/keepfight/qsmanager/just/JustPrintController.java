@@ -164,9 +164,11 @@ public class JustPrintController implements Initializable {
         Printer printer = sel_printer.getValue();
         QSPrintType type = typeProperty.get();
         Node rootNode = type.getController().getRoot();
+        rootNode.requestFocus();
 
         // 转换为打印截图样式
         FXUtils.addStyle("snap", rootNode);
+
         PageLayout pageLayout = printer.createPageLayout(
                 type.getPaper(),
                 type.getOrientation(),
@@ -179,7 +181,7 @@ public class JustPrintController implements Initializable {
                 // 使用Platfor.runLater 是为了保证在打印完成前，不会先去除样式
                 Platform.runLater(() -> {
                     try {
-                        FXWidgetUtil.printNode(rootNode, printer, pageLayout);
+                        FXWidgetUtil.printNodeNew(rootNode, printer, pageLayout, type.getController().getFolder());
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {

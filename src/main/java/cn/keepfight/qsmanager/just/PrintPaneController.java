@@ -21,6 +21,8 @@ public abstract class PrintPaneController<T extends Printable> implements Initia
 
     public abstract void fill(T data);
 
+    public abstract int getFolder();
+
     public Paper getPaper(){
         return Paper.A4;
     }
@@ -30,7 +32,7 @@ public abstract class PrintPaneController<T extends Printable> implements Initia
     }
 
     public double getMargin(){
-        return 30;
+        return 25;
     }
 
     @Override

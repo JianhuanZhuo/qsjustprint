@@ -159,4 +159,9 @@ public class PrintDeliveryController extends PrintPaneController<DeliveryPrintMo
         }
         table.getItems().setAll(items);
     }
+
+    @Override
+    public int getFolder() {
+        return 2;
+    }
 }

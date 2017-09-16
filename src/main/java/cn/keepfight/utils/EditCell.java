@@ -109,7 +109,7 @@ public class EditCell<T, K> extends TextFieldTableCell<T, K> {
                 try {
                     return new BigDecimal(string);
                 }catch (Exception e){
-                    e.printStackTrace();
+//                    e.printStackTrace();
                     return new BigDecimal(0);
                 }
 

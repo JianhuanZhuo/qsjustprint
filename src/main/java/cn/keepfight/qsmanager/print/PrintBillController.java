@@ -105,4 +105,9 @@ public class PrintBillController extends PrintPaneController<ReceiptPrintModel> 
 
         stamp = data.getStamp();
     }
+
+    @Override
+    public int getFolder() {
+        return 3;
+    }
 }

@@ -54,6 +54,10 @@ public enum QSPrintType {
         return controller;
     }
 
+    public int getFolder(){
+        return controller.getFolder();
+    }
+
     @Override
     public String toString() {
         return getTitle();

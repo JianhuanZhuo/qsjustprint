@@ -4,6 +4,7 @@ package cn.keepfight.utils;
 import cn.keepfight.qsmanager.print.PrintDeliveryController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.binding.NumberExpressionBase;
@@ -91,7 +92,7 @@ public class FXWidgetUtil {
         for (Pair<TextField, String> pair : textFieldStringPair) {
             try {
                 defaultList(pair.getKey(), Arrays.asList(((String) ps.get(pair.getValue())).split(SPLITER)));
-            }catch (Exception e){
+            } catch (Exception e) {
                 // to do nothing
             }
         }
@@ -113,7 +114,7 @@ public class FXWidgetUtil {
             List<String> ls = new ArrayList<>(7);
             try {
                 ls.addAll(Arrays.asList(((String) ps.get(p.getKey())).split(SPLITER)));
-            }catch (Exception e){
+            } catch (Exception e) {
                 // to do nothing
             }
             ls.add(0, p.getValue());
@@ -126,17 +127,17 @@ public class FXWidgetUtil {
     }
 
     public static <T> void compute(List<T> list, Function<T, BigDecimal> toDecimal,
-                                   Consumer<String> consumer){
+                                   Consumer<String> consumer) {
         compute(list, toDecimal, consumer, BigDecimal::add);
     }
 
     public static <T> void compute(List<T> list, Function<T, BigDecimal> toDecimal,
-                               Consumer<String> consumer, BinaryOperator<BigDecimal> accumulator){
+                                   Consumer<String> consumer, BinaryOperator<BigDecimal> accumulator) {
         Optional<BigDecimal> t = list.stream()
-                .map((item)->{
+                .map((item) -> {
                     try {
                         return toDecimal.apply(item);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         return null;
                     }
                 })
@@ -151,11 +152,12 @@ public class FXWidgetUtil {
 
     /**
      * 对可变数组进行统计监听
-     * @param obserList 需要监听的可变数组
-     * @param toDecimal 对可变数组的某一元素转化为数字特征
-     * @param consumer 统计结果的消费器
+     *
+     * @param obserList   需要监听的可变数组
+     * @param toDecimal   对可变数组的某一元素转化为数字特征
+     * @param consumer    统计结果的消费器
      * @param accumulator 对于数组的所有数字特征进行合计的方法
-     * @param <T> 可变数组的泛化类型
+     * @param <T>         可变数组的泛化类型
      */
     public static <T> void calculate(ObservableList<T> obserList, Function<T, BigDecimal> toDecimal,
                                      Consumer<String> consumer, BinaryOperator<BigDecimal> accumulator) {
@@ -171,19 +173,21 @@ public class FXWidgetUtil {
 
     /**
      * 对可变数组进行统计监听，该重载方法使用了加法作为默认合计方法
+     *
      * @param obserList 需要监听的可变数组
      * @param toDecimal 对可变数组的某一元素转化为数字特征
-     * @param consumer 统计结果的消费器
-     * @param <T> 可变数组的泛化类型
+     * @param consumer  统计结果的消费器
+     * @param <T>       可变数组的泛化类型
      */
-    public static <T>  void calculate(ObservableList<T> obserList, Function<T, BigDecimal> toDecimal,
-                                      Consumer<String> consumer){
+    public static <T> void calculate(ObservableList<T> obserList, Function<T, BigDecimal> toDecimal,
+                                     Consumer<String> consumer) {
         calculate(obserList, toDecimal, consumer, BigDecimal::add);
     }
 
     /**
      * 破解提示工具 Tooltip，修改其触发时间为 200 毫秒
      * 参考：https://stackoverflow.com/questions/26854301/how-to-control-the-javafx-tooltips-delay
+     *
      * @param tooltip 需要被破解的提示工具
      */
     public static void hackTooltipStartTiming(Tooltip tooltip) {
@@ -206,14 +210,14 @@ public class FXWidgetUtil {
     /**
      * 将 target=sa*sb 进行绑定
      */
-    public static void simpleBiMultiply(TextField target, TextField sa, TextField sb){
+    public static void simpleBiMultiply(TextField target, TextField sa, TextField sb) {
         simpleBiOper(target, BigDecimal::multiply, sa, sb);
     }
 
     /**
      * 将 target=sa+sb 进行绑定
      */
-    public static void simpleBiAdd(TextField target, TextField sa, TextField sb){
+    public static void simpleBiAdd(TextField target, TextField sa, TextField sb) {
         simpleBiOper(target, BigDecimal::add, sa, sb);
     }
 
@@ -221,11 +225,12 @@ public class FXWidgetUtil {
     /**
      * 将 target=sa oper sb 进行绑定
      */
-    public static void simpleBiOper(TextField target, BiFunction<BigDecimal, BigDecimal, BigDecimal> oper, TextField sa, TextField sb){
+    public static void simpleBiOper(TextField target, BiFunction<BigDecimal, BigDecimal, BigDecimal> oper, TextField sa, TextField sb) {
         target.textProperty().bind(new StringBinding() {
             {
                 bind(sa.textProperty(), sb.textProperty());
             }
+
             @Override
             protected String computeValue() {
                 try {
@@ -244,11 +249,12 @@ public class FXWidgetUtil {
     public static void simpleTriOper(TextField target,
                                      BiFunction<BigDecimal, BigDecimal, BigDecimal> oper1,
                                      BiFunction<BigDecimal, BigDecimal, BigDecimal> oper2,
-                                     TextField sa, TextField sb, TextField sc){
+                                     TextField sa, TextField sb, TextField sc) {
         target.textProperty().bind(new StringBinding() {
             {
                 bind(sa.textProperty(), sb.textProperty(), sc.textProperty());
             }
+
             @Override
             protected String computeValue() {
                 try {
@@ -256,7 +262,7 @@ public class FXWidgetUtil {
                             oper1.apply(
                                     new BigDecimal(sa.getText()),
                                     new BigDecimal(sb.getText())),
-                           new BigDecimal(sc.getText())
+                            new BigDecimal(sc.getText())
                     ).stripTrailingZeros().toPlainString();
                 } catch (Exception e) {
                     return "0";
@@ -266,71 +272,72 @@ public class FXWidgetUtil {
     }
 
 
-    private static<T> void connectHelper(TableColumn<T, String> tab_col, Function<T, String> getStr, String d){
+    private static <T> void connectHelper(TableColumn<T, String> tab_col, Function<T, String> getStr, String d) {
         tab_col.setCellValueFactory(param -> {
             String s;
             try {
                 s = getStr.apply(param.getValue());
-            }catch (Exception e){
+            } catch (Exception e) {
                 s = d;
             }
             return new SimpleStringProperty(s);
         });
     }
 
-    private static<T> void connectHelper(TableColumn<T, String> tab_col, ObservableValue<String> s){
+    private static <T> void connectHelper(TableColumn<T, String> tab_col, ObservableValue<String> s) {
         tab_col.setCellValueFactory(param -> s);
     }
 
     /**
      * 以指定的转换方式连接表格列
      */
-    public static<T> void connect(TableColumn<T, String> tab_col, Function<T, ObservableValue<String>> x){
+    public static <T> void connect(TableColumn<T, String> tab_col, Function<T, ObservableValue<String>> x) {
         tab_col.setCellValueFactory(param -> x.apply(param.getValue()));
-        connectHelper(tab_col, p->x.apply(p).getValue(), "");
+        connectHelper(tab_col, p -> x.apply(p).getValue(), "");
     }
 
     /**
      * 以指定的转换方式连接表格列
      */
-    public static<T> void connectNum(TableColumn<T, String> tab_col, Function<T, NumberExpressionBase> x){
-        connectHelper(tab_col, p->x.apply(p).asString().get(), "0");
+    public static <T> void connectNum(TableColumn<T, String> tab_col, Function<T, NumberExpressionBase> x) {
+        connectHelper(tab_col, p -> x.apply(p).asString().get(), "0");
     }
 
     /**
      * 以指定的转换方式连接表格列
      */
-    public static<T> void connectObj(TableColumn<T, String> tab_col, Function<T, ObjectExpression> x){
-        connectHelper(tab_col, p->x.apply(p).asString().get(), "");
+    public static <T> void connectObj(TableColumn<T, String> tab_col, Function<T, ObjectExpression> x) {
+        connectHelper(tab_col, p -> x.apply(p).asString().get(), "");
     }
 
     /**
      * 以指定的转换方式连接表格列
      */
-    public static<T> void connectDecimal(TableColumn<T, String> tab_col, Function<T, BigDecimal> x){
-        connectHelper(tab_col, p->x.apply(p).stripTrailingZeros().toPlainString(), "0");
+    public static <T> void connectDecimal(TableColumn<T, String> tab_col, Function<T, BigDecimal> x) {
+        connectHelper(tab_col, p -> x.apply(p).stripTrailingZeros().toPlainString(), "0");
     }
 
     /**
      * 以指定的转换方式连接表格列
      */
-    public static<T> void connectDecimalObj(TableColumn<T, String> tab_col, Function<T, ObjectProperty<BigDecimal>> x){
+    public static <T> void connectDecimalObj(TableColumn<T, String> tab_col, Function<T, ObjectProperty<BigDecimal>> x) {
         tab_col.setCellValueFactory(param -> new SimpleStringProperty(x.apply(param.getValue()).get().stripTrailingZeros().toPlainString()));
     }
 
 
     /**
      * 双击编辑
-     * @param tab 指定表格视图
+     *
+     * @param tab           指定表格视图
      * @param getController 编辑时所需要用的视图控制器
-     * @param resHandler 编辑完成返回后使用的消费器，一般为更新状态
-     * @param runBefore 在进行编辑界面前需要运行的操作，一般为设置属性等
-     * @param <T> 运行过程中所使用的核心数据结构类型
+     * @param resHandler    编辑完成返回后使用的消费器，一般为更新状态
+     * @param runBefore     在进行编辑界面前需要运行的操作，一般为设置属性等
+     * @param <T>           运行过程中所使用的核心数据结构类型
      */
-    public static<T> void doubleToEdit(TableView<T> tab,
-                                       Supplier<DialogContent<T>> getController,
-                                       BiConsumer<T, T> resHandler,
-                                       Runnable runBefore){
+    public static <T> void doubleToEdit(TableView<T> tab,
+                                        Supplier<DialogContent<T>> getController,
+                                        BiConsumer<T, T> resHandler,
+                                        Runnable runBefore) {
         tab.setRowFactory(tv -> {
             TableRow<T> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -338,7 +345,7 @@ public class FXWidgetUtil {
                     T rowData = row.getItem();
                     runBefore.run();
                     Optional<T> op = CustomDialog.gen().build(getController.get(), rowData);
-                    op.ifPresent(model->resHandler.accept(rowData, model));
+                    op.ifPresent(model -> resHandler.accept(rowData, model));
                 }
             });
             return row;
@@ -348,52 +355,112 @@ public class FXWidgetUtil {
 
     /**
      * 双击编辑，重载方法，编辑前使用默认行为
-     * @param tab 指定表格视图
+     *
+     * @param tab           指定表格视图
      * @param getcontroller 编辑时所需要用的视图控制器
-     * @param resHandler 编辑完成返回后使用的消费器，一般为更新状态
-     * @param <T> 运行过程中所使用的核心数据结构类型
+     * @param resHandler    编辑完成返回后使用的消费器，一般为更新状态
+     * @param <T>           运行过程中所使用的核心数据结构类型
      */
-    public static<T> void doubleToEdit(TableView<T> tab,
-                                       Supplier<DialogContent<T>> getcontroller,
-                                       BiConsumer<T, T> resHandler){
-        doubleToEdit(tab, getcontroller, resHandler, ()->{});
+    public static <T> void doubleToEdit(TableView<T> tab,
+                                        Supplier<DialogContent<T>> getcontroller,
+                                        BiConsumer<T, T> resHandler) {
+        doubleToEdit(tab, getcontroller, resHandler, () -> {
+        });
     }
 
 
-    public static boolean printNode(Node node, Printer printer, PageLayout pageLayout) throws Exception{
+    public static boolean printNode(Node node, Printer printer, PageLayout pageLayout) throws Exception {
         PrinterJob job = PrinterJob.createPrinterJob(printer);
-        System.out.println("node.getBoundsInParent().getHeight():"+node.getBoundsInParent().getHeight());
-        System.out.println("node.getBoundsInParent().getWidth():"+node.getBoundsInParent().getWidth());
+        System.out.println("node.getBoundsInParent().getHeight():" + node.getBoundsInParent().getHeight());
+        System.out.println("node.getBoundsInParent().getWidth():" + node.getBoundsInParent().getWidth());
 
         Thread.sleep(100);
 
         double scaleX
-                = (pageLayout.getPrintableWidth()-10) / node.getBoundsInParent().getWidth();
+                = (pageLayout.getPrintableWidth() - 10) / node.getBoundsInParent().getWidth();
         double scaleY
-                = (pageLayout.getPrintableHeight()-10) / node.getBoundsInParent().getHeight();
+                = (pageLayout.getPrintableHeight() - 10) / node.getBoundsInParent().getHeight();
 
         int loop = 0;
-        while (loop++ <10 && (Math.abs(scaleX-1.0)>0.2 || Math.abs(scaleY-1.0)>0.2)){
+        while (loop++ < 10 && (Math.abs(scaleX - 1.0) > 0.2 || Math.abs(scaleY - 1.0) > 0.2)) {
             System.err.println("need to sleep 1s to wait style rerencering!");
             Thread.sleep(1000);
-            scaleX = (pageLayout.getPrintableWidth()-10) / node.getBoundsInParent().getWidth();
-            scaleY = (pageLayout.getPrintableHeight()-10) / node.getBoundsInParent().getHeight();
-            System.out.println("scaleX:"+scaleX);
-            System.out.println("scaleY:"+scaleY);
+            scaleX = (pageLayout.getPrintableWidth() - 10) / node.getBoundsInParent().getWidth();
+            scaleY = (pageLayout.getPrintableHeight() - 10) / node.getBoundsInParent().getHeight();
+            System.out.println("scaleX:" + scaleX);
+            System.out.println("scaleY:" + scaleY);
         }
 
-        System.out.println("pageLayout.getPrintableWidth():"+pageLayout.getPrintableWidth());
-        System.out.println("pageLayout.getPrintableHeight():"+pageLayout.getPrintableHeight());
+        System.out.println("pageLayout.getPrintableWidth():" + pageLayout.getPrintableWidth());
+        System.out.println("pageLayout.getPrintableHeight():" + pageLayout.getPrintableHeight());
 
         Scale scale = new Scale(scaleX, scaleY);
         node.getTransforms().add(scale);
 
         try {
             job.getJobSettings().setJobName("丹灶晴旭管理软件打印任务");
-            if (job.printPage(pageLayout, node)){
+            if (job.printPage(pageLayout, node)) {
                 return job.endJob();
             }
-        }finally {
+        } finally {
+            node.getTransforms().remove(scale);
+        }
+        return false;
+    }
+
+
+    /**
+     * 打印任务执行
+     *
+     * @param node       需要被打印的节点
+     * @param printer    打印机对象
+     * @param pageLayout 布局器
+     * @param folder     一个整数，一般为 1、2、3 表示仅使用该纸张的几分联，如果为2表示仅使用纸张的二分之一
+     */
+    public static boolean printNodeNew(Node node, Printer printer, PageLayout pageLayout, int folder) throws Exception {
+        PrinterJob job = PrinterJob.createPrinterJob(printer);
+        System.out.println("node.getBoundsInParent().getHeight():" + node.getBoundsInParent().getHeight());
+        System.out.println("node.getBoundsInParent().getWidth():" + node.getBoundsInParent().getWidth());
+        System.out.println("pageLayout.getPrintableHeight():" + pageLayout.getPrintableHeight());
+        System.out.println("pageLayout.getPrintableWidth():" + pageLayout.getPrintableWidth());
+        System.out.println("pageLayout.getTopMargin():" + pageLayout.getTopMargin());
+        System.out.println("pageLayout.getLeftMargin():" + pageLayout.getLeftMargin());
+
+        Thread.sleep(100);
+
+        if (folder > 3 || folder < 1) {
+            new Exception("folder 参数错误！" + folder).printStackTrace();
+            Platform.exit();
+        }
+
+        double realPrintable = (pageLayout.getPrintableHeight() - (folder - 1) * 2 * pageLayout.getTopMargin()) / folder;
+
+
+        System.out.println("folder:"+folder+"\n"+"realPrintable:" + realPrintable);
+
+        // 减5防止大一点点，超过打印范围，换页了
+        double scaleX = (pageLayout.getPrintableWidth()-5) / node.getBoundsInParent().getWidth();
+        double scaleY = (realPrintable-5) / node.getBoundsInParent().getHeight();
+
+//        int loop = 0;
+//        while (loop++ <10 && (Math.abs(scaleX-1.0)>0.2 || Math.abs(scaleY-1.0)>0.2)){
+//            System.err.println("need to sleep 1s to wait style rerencering!");
+//            Thread.sleep(1000);
+//            scaleX = (pageLayout.getPrintableWidth()-10) / node.getBoundsInParent().getWidth();
+//            scaleY = (pageLayout.getPrintableHeight()-10) / node.getBoundsInParent().getHeight();
+//            System.out.println("scaleX:"+scaleX);
+//            System.out.println("scaleY:"+scaleY);
+//        }
+
+        Scale scale = new Scale(scaleX, scaleY);
+        node.getTransforms().add(scale);
+
+        try {
+            job.getJobSettings().setJobName("丹灶晴旭管理软件打印任务");
+            if (job.printPage(pageLayout, node)) {
+                return job.endJob();
+            }
+        } finally {
             node.getTransforms().remove(scale);
         }
         return false;
@@ -402,69 +469,73 @@ public class FXWidgetUtil {
 
     /**
      * 分页数绑定
-     * @param list 表格所表示的内容数据列表
+     *
+     * @param list    表格所表示的内容数据列表
      * @param getSize 从列表中获取尺寸大小的回调
-     * @param perNum 每个分页所表示的数据大小，如每页为20个
-     * @param obs 需要监听的可监听值列表
+     * @param perNum  每个分页所表示的数据大小，如每页为20个
+     * @param obs     需要监听的可监听值列表
      */
-    public static<T> IntegerBinding pageNumBind(Supplier<T> list, Function<T, Integer> getSize, int perNum, Observable... obs){
+    public static <T> IntegerBinding pageNumBind(Supplier<T> list, Function<T, Integer> getSize, int perNum, Observable... obs) {
         return new IntegerBinding() {
-            {bind(obs);}
+            {
+                bind(obs);
+            }
+
             @Override
             protected int computeValue() {
                 if (list.get() == null) {
                     return 0;
                 } else {
-                    return (int) Math.ceil( getSize.apply(list.get()) / (double)perNum);
+                    return (int) Math.ceil(getSize.apply(list.get()) / (double) perNum);
                 }
             }
         };
     }
 
     @SafeVarargs
-    public static<T> void cellStr(TableColumn<T, String>... cs){
+    public static <T> void cellStr(TableColumn<T, String>... cs) {
         for (TableColumn<T, String> c : cs) {
             c.setCellFactory(TextFieldTableCell.forTableColumn());
         }
     }
 
     @SafeVarargs
-    public static<T> void cellDecimal(StringConverter<BigDecimal> converter, TableColumn<T, BigDecimal>... cs){
+    public static <T> void cellDecimal(StringConverter<BigDecimal> converter, TableColumn<T, BigDecimal>... cs) {
         for (TableColumn<T, BigDecimal> c : cs) {
             c.setCellFactory(TextFieldTableCell.forTableColumn(converter));
         }
     }
 
     @SafeVarargs
-    public static<T> void cellDecimal(TableColumn<T, BigDecimal>... cs){
+    public static <T> void cellDecimal(TableColumn<T, BigDecimal>... cs) {
         cellDecimal(FXUtils.decimalConverter("0"), cs);
     }
 
     @SafeVarargs
-    public static<T> void cellInteger(StringConverter<Integer> converter, TableColumn<T, Integer>... cs){
+    public static <T> void cellInteger(StringConverter<Integer> converter, TableColumn<T, Integer>... cs) {
         for (TableColumn<T, Integer> c : cs) {
             c.setCellFactory(TextFieldTableCell.forTableColumn(converter));
         }
     }
 
     @SafeVarargs
-    public static<T> void cellInteger(TableColumn<T, Integer>... cs){
+    public static <T> void cellInteger(TableColumn<T, Integer>... cs) {
 
     }
 
     @SafeVarargs
-    public static<T> void cellLong(StringConverter<Long> converter, TableColumn<T, Long>... cs){
+    public static <T> void cellLong(StringConverter<Long> converter, TableColumn<T, Long>... cs) {
         for (TableColumn<T, Long> c : cs) {
             c.setCellFactory(TextFieldTableCell.forTableColumn(converter));
         }
     }
 
     @SafeVarargs
-    public static<T> void cellLong(TableColumn<T, Long>... cs){
+    public static <T> void cellLong(TableColumn<T, Long>... cs) {
         cellLong(FXUtils.longConverter("0"), cs);
     }
 
-    public static StringBinding sBinding(String s){
+    public static StringBinding sBinding(String s) {
         return new StringBinding() {
             @Override
             protected String computeValue() {
@@ -472,11 +543,13 @@ public class FXWidgetUtil {
             }
         };
     }
-    public static StringBinding spBinding(StringProperty s){
+
+    public static StringBinding spBinding(StringProperty s) {
         return new StringBinding() {
             {
                 bind(s);
             }
+
             @Override
             protected String computeValue() {
                 return s.get();

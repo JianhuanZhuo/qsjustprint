@@ -70,6 +70,25 @@
     -fx-padding: 0;
 }
 
+
+/* A4 纸，3分 */
+.layout_A4_3 {
+    -fx-min-height: 280px;
+    -fx-max-height: 280px; /*230+(25*2=50)=280*/
+    -fx-min-width: 595px;
+    -fx-max-width: 595px;    /*545+(25*2=50)=595*/
+    -fx-padding: 25px;
+}
+
+/* A4 纸，3分 */
+.snap .layout_A4_3 {
+    -fx-min-height: 230px;
+    -fx-max-height: 230px; /*312+(54*2=108)=420*/
+    -fx-min-width: 545px;
+    -fx-max-width: 545px;    /*487+(54*2=108)=595*/
+    -fx-padding: 0px;
+}
+
 /***************************************************************
  * 打印内容相关的设定
  *
@@ -222,11 +241,11 @@ GridPane.fitpack TextField {
 }
 
 .bill-font Label{
-    -fx-font: normal normal 14px "微软雅黑";
+    -fx-font: normal normal 12px "微软雅黑";
 }
 
 .bill-font TextField{
-    -fx-font: normal normal 14px "微软雅黑";
+    -fx-font: normal normal 12px "微软雅黑";
 }
 
 .bill.print_title  TextField{
@@ -238,7 +257,7 @@ GridPane.fitpack TextField {
 }
 
 .serial-line{
-    -fx-padding: 5px;
+    -fx-padding: 2px;
 }
 
 .bill-content{
@@ -250,4 +269,9 @@ GridPane.fitpack TextField {
 .bill-content TextField{
     -fx-border-width: 0 0 1px 0;
     -fx-border-color: black;
+}
+
+.bill-font .stamp{
+    -fx-min-height: 20px;
+    -fx-max-height: 20px;
 }

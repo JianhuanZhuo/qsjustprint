@@ -191,4 +191,9 @@ public class PrintReceiptController extends PrintPaneController<DeliveryPrintMod
         }
         table.getItems().setAll(items);
     }
+
+    @Override
+    public int getFolder() {
+        return 2;
+    }
 }
