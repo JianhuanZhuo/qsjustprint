@@ -1,7 +1,6 @@
 package cn.keepfight.utils;
 
 
-import cn.keepfight.qsmanager.print.PrintDeliveryController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -11,7 +10,6 @@ import javafx.beans.binding.NumberExpressionBase;
 import javafx.beans.binding.ObjectExpression;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;

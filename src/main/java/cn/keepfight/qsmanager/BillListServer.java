@@ -23,18 +23,18 @@ public class BillListServer {
     }
 
     private Comparator<Printable> comparator = (o1, o2) -> {
-        if (o1 == null){
+        if (o1 == null) {
             return 1;
-        }else if (o2 == null){
+        } else if (o2 == null) {
             return -1;
         }
         long x = o1.getStamp();
         long y = o2.getStamp();
-        if (x==y){
+        if (x == y) {
             return 0;
-        }else if (x>y){
+        } else if (x > y) {
             return -1;
-        }else {
+        } else {
             return 1;
         }
     };
@@ -59,32 +59,62 @@ public class BillListServer {
         FXCollections.sort(printableList, comparator);
     }
 
-    public void replacePrintable(Printable target, Printable p){
+    public void replacePrintable(Printable target, Printable p) {
         printableList.remove(target);
         printableList.add(p);
         FXCollections.sort(printableList, comparator);
     }
 
-    public void removePrintable(Printable p){
+    public void removePrintable(Printable p) {
         printableList.remove(p);
 //        FXCollections.sort(printableList, comparator);
     }
 
-        public void loadFromFile(){
-            try(ObjectInputStream is = new ObjectInputStream(new FileInputStream("./data/wxp.objs"))){
-                printableList.setAll((List<Printable>) is.readObject());
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-                WarningBuilder.build("订单列表读取失败！");
+    public void loadFromFile() {
+//        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream("./data/wxp.objs"))) {
+//            printableList.setAll((List<Printable>) is.readObject());
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//            WarningBuilder.build("订单列表读取失败！");
+//        }
+        loadFromFile(new File("./data/wxp.objs"));
+    }
+
+    public void loadFromFile(File target) {
+        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(target))) {
+            printableList.setAll((List<Printable>) is.readObject());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            WarningBuilder.build("订单列表读取失败！");
         }
     }
 
-    public void storeToFile(){
-        try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("./data/wxp.objs"))) {
+    public void storeToFile() {
+//        try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("./data/wxp.objs"))) {
+//            os.writeObject(new ArrayList<>(printableList));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            WarningBuilder.build("订单列表保存失败！");
+//        }
+        storeToFile(new File("./data/wxp.objs"));
+    }
+
+    public void storeToFile(File target) {
+        if (!target.exists()){
+            try {
+                target.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                WarningBuilder.build("保存失败，文件无法创建！");
+                return;
+            }
+        }
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(target))) {
             os.writeObject(new ArrayList<>(printableList));
         } catch (IOException e) {
             e.printStackTrace();
             WarningBuilder.build("订单列表保存失败！");
+            return;
         }
     }
 }
