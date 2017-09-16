@@ -2,8 +2,10 @@ package cn.keepfight.qsmanager.print;
 
 import cn.keepfight.qsmanager.PropertiesServer;
 import cn.keepfight.qsmanager.just.DeliveryItem;
+import cn.keepfight.qsmanager.just.DeliveryItemModel;
 import cn.keepfight.qsmanager.just.DeliveryPrintModel;
 import cn.keepfight.qsmanager.just.PrintPaneController;
+import cn.keepfight.utils.EditCell;
 import cn.keepfight.utils.FXWidgetUtil;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * 收据单表格打印控制器
@@ -75,6 +78,7 @@ public class PrintReceiptController extends PrintPaneController<DeliveryPrintMod
     private TextField all_total;
 
     private static final int SIZE_PER_PAGE = 8;
+    private long stamp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,8 +88,20 @@ public class PrintReceiptController extends PrintPaneController<DeliveryPrintMod
 
         table.setEditable(true);
         table.getColumns().forEach(x -> x.setSortable(false));
-        FXWidgetUtil.cellStr(detail, unit, name);
-        FXWidgetUtil.cellDecimal(price, num);
+        yuan_u4.setEditable(false);
+        yuan_u3.setEditable(false);
+        yuan_u2.setEditable(false);
+        yuan_u1.setEditable(false);
+        yuan.setEditable(false);
+        yuan_d1.setEditable(false);
+        yuan_d2.setEditable(false);
+
+        EditCell.cell(name, DeliveryItem::setProduct, EditCell.strConv());
+        EditCell.cell(detail, DeliveryItem::setDetail, EditCell.strConv());
+        EditCell.cell(unit, DeliveryItem::setUnit, EditCell.strConv());
+
+        EditCell.cell(price, DeliveryItem::setPrice, EditCell.DeciConv());
+        EditCell.cell(num, DeliveryItem::setNum, EditCell.DeciConv());
 
         name.setCellValueFactory(x -> x.getValue().productProperty());
         FXWidgetUtil.connect(detail, DeliveryItem::detailProperty);
@@ -116,7 +132,29 @@ public class PrintReceiptController extends PrintPaneController<DeliveryPrintMod
 
     @Override
     public DeliveryPrintModel pack() {
-        return null;
+        DeliveryPrintModel model = new DeliveryPrintModel();
+        model.setHead(head.getText());
+        model.setMy_addr(my_addr.getText());
+        model.setMy_phone(my_phone.getText());
+
+        model.setSerial(serial.getText());
+        model.setCust_name(cust.getText());
+        model.setCust_addr(addr.getText());
+        model.setCust_phone(phone.getText());
+//        model.setCust_contract(contract.getText());
+//        model.setMaker(maker.getText());
+        model.setDate_delivery(mdate.getText());
+
+        model.setType(QSPrintType.RECEIPT);
+
+        model.setStamp(stamp, false);
+
+        model.getItems().addAll(table.getItems().stream()
+                .map(DeliveryItem::cloneItem)
+                .map(DeliveryItem::toItem)
+                .collect(Collectors.toList()));
+
+        return model;
     }
 
     @Override
@@ -141,80 +179,16 @@ public class PrintReceiptController extends PrintPaneController<DeliveryPrintMod
 //        maker.setText(data.getMaker());
         mdate.setText(data.getDate_delivery());
 
+        this.stamp = data.getStamp();
 
         // 添加为表格
-        List<DeliveryItem> items = data.getItems();
-        for (int i=0; i<SIZE_PER_PAGE-items.size(); i++){
+        List<DeliveryItem> items = data.getItems().stream()
+                .map(DeliveryItemModel::toItem)
+                .collect(Collectors.toList());
+        int k = SIZE_PER_PAGE-items.size();
+        for (int i=0; i<k; i++){
             items.add(new DeliveryItem());
         }
         table.getItems().setAll(items);
     }
-
-//    @Override
-//    public void fill(OrderModelFull datas) {
-//        this.datas = datas;
-//
-//        serial.setText(datas.getSerial());
-//
-//        // 填充客户信息
-//        try {
-//            CustomModel c = QSApp.service.getCustomService().selectAllByID(datas.getCid());
-//            cust.setText(c.getNamefull());
-//            addr.setText(c.getAddr());
-//            phone.setText(c.getPhone());
-//
-//            // 加载默认记忆选项并添加默认下拉
-//            FXWidgetUtil.defaultList(
-//                    new Pair<>(addr, "custom.info.addr."+c.getSerial())
-//            );
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        // 填写其他信息
-//        maker.setText(ConfigUtil.load("fxapp.properties").getProperty("print.maker"));
-//        mdate.setText(FXUtils.stampToDate(System.currentTimeMillis()));
-//
-//        // 添加为表格
-//        List<DeliveryItem> items = datas.getOrderItemModels().stream().map(DeliveryItem::new).collect(Collectors.toList());
-//        for (int i=0; i<SIZE_PER_PAGE-datas.getOrderItemModels().size(); i++){
-//            items.add(new DeliveryItem());
-//        }
-//        table.getItems().setAll(items);
-//
-//        // 添加表格可选的菜单下拉
-//        try {
-//            List<ProductModel> plist = QSApp.service.getOrderFavorService().selectAll(datas.getCid());
-//            productList = plist
-//                    .stream()
-//                    .collect(Collectors.toMap(p->p.getSerial()+"-"+p.getName(), p->p));
-//            List<String> ss = plist.stream().map(p->p.getSerial()+"-"+p.getName()).collect(Collectors.toList());
-//            ss.add(null);
-//            name.setCellFactory(ChoiceBoxTableCell.forTableColumn(ss.toArray(new String[ss.size()])));
-//        } catch (Exception e) {
-//            //@TODO 这里如果有毛病了，那么该怎么处理？
-//            e.printStackTrace();
-//            productList = new HashMap<>();
-//        }
-//    }
-//    public void autoCalculate() {
-//        Optional<BigDecimal> t = table.getItems().stream()
-//                .peek(x -> {
-//                    BigDecimal d = x.getTakeTotal();
-//                    //@TODO 搞完回来弄
-//                    x.yuan_u4.set(FXUtils.getNumAt(d, 5, true));
-//                    x.yuan_u3.set(FXUtils.getNumAt(d, 4, true));
-//                    x.yuan_u2.set(FXUtils.getNumAt(d, 3, true));
-//                    x.yuan_u1.set(FXUtils.getNumAt(d, 2, true));
-//                    x.yuan.set(FXUtils.getNumAt(d, 1, true));
-//                    x.yuan_d1.set(FXUtils.getNumAt(d, 1, false));
-//                    x.yuan_d2.set(FXUtils.getNumAt(d, 2, false));
-//                })
-//                .map(OrderItemModel::getTakeTotal)
-//                .reduce(BigDecimal::add);
-//        String text = "0";
-//        if (t.isPresent()) {
-//            text = t.get().stripTrailingZeros().toPlainString();
-//        }
-//        all_total.setText(text);
-//    }
 }

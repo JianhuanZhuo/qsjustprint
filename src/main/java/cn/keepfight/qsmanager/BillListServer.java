@@ -70,17 +70,17 @@ public class BillListServer {
 //        FXCollections.sort(printableList, comparator);
     }
 
-    public void loadFromFile(){
-        try(ObjectInputStream is = new ObjectInputStream(new FileInputStream("wxp.objs"))){
-            printableList.setAll((List<Printable>) is.readObject());
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            WarningBuilder.build("订单列表读取失败！");
+        public void loadFromFile(){
+            try(ObjectInputStream is = new ObjectInputStream(new FileInputStream("./data/wxp.objs"))){
+                printableList.setAll((List<Printable>) is.readObject());
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+                WarningBuilder.build("订单列表读取失败！");
         }
     }
 
     public void storeToFile(){
-        try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("wxp.objs"))) {
+        try(ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("./data/wxp.objs"))) {
             os.writeObject(new ArrayList<>(printableList));
         } catch (IOException e) {
             e.printStackTrace();

@@ -9,9 +9,6 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
 import javafx.print.PageLayout;
@@ -21,7 +18,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 import java.net.URL;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -100,6 +100,7 @@ public class JustPrintController implements Initializable {
         btn_save.setOnAction(event -> {
             Printable p = typeProperty.get().getController().pack();
             BillListServer.getInstance().replacePrintable(list_printable.getSelectionModel().getSelectedItem(), p);
+            list_printable.getSelectionModel().select(p);
         });
 
         btn_del.setOnAction(event -> BillListServer.getInstance().removePrintable(list_printable.getSelectionModel().getSelectedItem()));
@@ -112,15 +113,12 @@ public class JustPrintController implements Initializable {
         checkSupport();
     }
 
-    public void changePrintType(QSPrintType type) {
-        System.out.println(type);
-        System.out.println(type.getController());
-        typeProperty.set(type);
-        printScrollPane.setContent(type.getController().getRoot());
-    }
-
+    /**
+     * 加载单子
+     */
     public void loadData(Printable data) {
-        changePrintType(data.getType());
+        typeProperty.set(data.getType());
+        printScrollPane.setContent(data.getType().getController().getRoot());
         data.getType().getController().fill(data);
     }
 

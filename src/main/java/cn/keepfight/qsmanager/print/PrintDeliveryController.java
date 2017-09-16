@@ -2,27 +2,22 @@ package cn.keepfight.qsmanager.print;
 
 import cn.keepfight.qsmanager.PropertiesServer;
 import cn.keepfight.qsmanager.just.DeliveryItem;
+import cn.keepfight.qsmanager.just.DeliveryItemModel;
 import cn.keepfight.qsmanager.just.DeliveryPrintModel;
 import cn.keepfight.qsmanager.just.PrintPaneController;
-import cn.keepfight.qsmanager.model.*;
-import cn.keepfight.utils.*;
-import javafx.beans.property.*;
-import javafx.event.EventHandler;
-import javafx.fxml.Initializable;
+import cn.keepfight.utils.EditCell;
+import cn.keepfight.utils.FXWidgetUtil;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.util.*;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -58,7 +53,6 @@ public class PrintDeliveryController extends PrintPaneController<DeliveryPrintMo
     public TableColumn<DeliveryItem, String> note;
 
     private static final int SIZE_PER_PAGE = 8;
-    private static Properties ps = PropertiesServer.getInstance().getPS();
     private long stamp;
 
     @Override
@@ -70,8 +64,15 @@ public class PrintDeliveryController extends PrintPaneController<DeliveryPrintMo
         table.setEditable(true);
         total.setEditable(false);
         table.getColumns().forEach(x -> x.setSortable(false));
-        FXWidgetUtil.cellStr(detail, unit, note);
-        FXWidgetUtil.cellDecimal(price, num, total);
+        FXWidgetUtil.cellDecimal(total);
+
+        EditCell.cell(name, DeliveryItem::setProduct, EditCell.strConv());
+        EditCell.cell(detail, DeliveryItem::setDetail, EditCell.strConv());
+        EditCell.cell(unit, DeliveryItem::setUnit, EditCell.strConv());
+        EditCell.cell(note, DeliveryItem::setNote, EditCell.strConv());
+
+        EditCell.cell(price, DeliveryItem::setPrice, EditCell.DeciConv());
+        EditCell.cell(num, DeliveryItem::setNum, EditCell.DeciConv());
 
         price.setCellValueFactory(x -> x.getValue().priceProperty());
         num.setCellValueFactory(x -> x.getValue().numProperty());
@@ -84,21 +85,7 @@ public class PrintDeliveryController extends PrintPaneController<DeliveryPrintMo
 
         table.getItems().setAll(IntStream.range(0, SIZE_PER_PAGE).mapToObj(x -> new DeliveryItem()).collect(Collectors.toList()));
 
-
-//        table.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                System.out.println(event.getSource());
-//                TablePosition focusedCellPosition = table.getFocusModel().getFocusedCell();
-//                table.edit(focusedCellPosition.getRow(), focusedCellPosition.getTableColumn());
-//            }
-//        });
-        name.setCellFactory(new Callback<TableColumn<DeliveryItem, String>, TableCell<DeliveryItem, String>>() {
-            @Override
-            public TableCell<DeliveryItem, String> call(TableColumn<DeliveryItem, String> param) {
-                return new EditCell<>(DeliveryItem::setProduct);
-            }
-        });
+        FXWidgetUtil.calculate(table.getItems(), DeliveryItem::getTotalItem, all_total::setText);
     }
 
     public Node getRoot() {
@@ -125,9 +112,14 @@ public class PrintDeliveryController extends PrintPaneController<DeliveryPrintMo
         model.setMaker(maker.getText());
         model.setDate_delivery(ddate.getText());
 
+        model.setType(QSPrintType.DELIVERY);
+
         model.setStamp(stamp, false);
 
-        model.getItems().addAll(table.getItems().stream().map(DeliveryItem::cloneItem).collect(Collectors.toList()));
+        model.getItems().addAll(table.getItems().stream()
+                .map(DeliveryItem::cloneItem)
+                .map(DeliveryItem::toItem)
+                .collect(Collectors.toList()));
 
         return model;
     }
@@ -158,46 +150,13 @@ public class PrintDeliveryController extends PrintPaneController<DeliveryPrintMo
         this.stamp = data.getStamp();
 
         // 添加为表格
-        List<DeliveryItem> items = data.getItems();
-        for (int i = 0; i < SIZE_PER_PAGE - items.size(); i++) {
+        List<DeliveryItem> items = data.getItems().stream()
+                .map(DeliveryItemModel::toItem)
+                .collect(Collectors.toList());
+        int k = SIZE_PER_PAGE-items.size();
+        for (int i=0; i<k; i++){
             items.add(new DeliveryItem());
         }
         table.getItems().setAll(items);
-    }
-
-    private static <T> void cellStrEasy(TableColumn<T, String>... cs) {
-        for (TableColumn<T, String> c : cs) {
-            TextFieldTableCell.forTableColumn();
-            c.setCellFactory(new Callback<TableColumn<T, String>, TableCell<T, String>>() {
-                @Override
-                public TableCell<T, String> call(TableColumn<T, String> param) {
-                    return null;
-                }
-            });
-        }
-    }
-
-    private void makeSingleClickToEdit() {
-        table.addEventFilter(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.ENTER) {
-                    // move focus & selection
-                    // we need to clear the current selection first or else the selection would be added to the current selection since we are in multi selection mode
-                    TablePosition pos = table.getFocusModel().getFocusedCell();
-
-                    if (pos.getRow() == -1) {
-                        table.getSelectionModel().select(0);
-                    }
-                    // select next row, but same column as the current selection
-                    else if (pos.getRow() < table.getItems().size() - 1) {
-                        table.getSelectionModel().clearAndSelect(pos.getRow() + 1, pos.getTableColumn());
-                    }
-
-
-                }
-
-            }
-        });
     }
 }

@@ -26,7 +26,7 @@ public class DeliveryPrintModel implements Printable, Serializable {
     private long stamp;
     private int type;
 
-    private List<DeliveryItem> items = new ArrayList<>();
+    private List<DeliveryItemModel> items = new ArrayList<>();
 
     @Override
     public String getTitle() {
@@ -97,11 +97,11 @@ public class DeliveryPrintModel implements Printable, Serializable {
         this.date_delivery = date_delivery;
     }
 
-    public List<DeliveryItem> getItems() {
+    public List<DeliveryItemModel> getItems() {
         return items;
     }
 
-    public void setItems(List<DeliveryItem> items) {
+    public void setItems(List<DeliveryItemModel> items) {
         this.items = items;
     }
 
@@ -127,11 +127,9 @@ public class DeliveryPrintModel implements Printable, Serializable {
 
 
     public QSPrintType getType() {
-        System.out.println("type is :"+type);
         switch (type){
             case 1: return QSPrintType.RECEIPT;
             case 2: return QSPrintType.DELIVERY;
-            case 0: return QSPrintType.RECEIPT_P;
         }
         return null;
     }
@@ -146,9 +144,8 @@ public class DeliveryPrintModel implements Printable, Serializable {
 
     public void setType(QSPrintType t) {
         switch (t){
-            case DELIVERY: this.type = 2; break;
             case RECEIPT: this.type = 1; break;
-            case RECEIPT_P: this.type = 0; break;
+            case DELIVERY: this.type = 2; break;
         }
     }
 
@@ -168,7 +165,7 @@ public class DeliveryPrintModel implements Printable, Serializable {
         res.date_delivery = date_delivery;
         res.stamp = System.currentTimeMillis();
 
-        for (DeliveryItem i : items) {
+        for (DeliveryItemModel i : items) {
             res.items.add(i.cloneItem());
         }
 

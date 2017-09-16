@@ -107,7 +107,7 @@
                                 <argument>image</argument>
                                 <argument>-srcfiles</argument>
                                 <argument>
-                                    ${project.build.directory}/qsmanager-client-1.0-SNAPSHOT-jar-with-dependencies.jar
+                                    ${project.build.directory}/qs-justprint-1.0-SNAPSHOT-jar-with-dependencies.jar
                                 </argument>
                                 <argument>-outdir</argument>
                                 <argument>${project.build.directory}/fxp</argument>

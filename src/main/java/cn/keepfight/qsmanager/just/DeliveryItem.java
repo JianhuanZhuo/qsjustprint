@@ -215,7 +215,6 @@ public class DeliveryItem implements Serializable{
     }
 
 
-
     public DeliveryItem cloneItem() {
         DeliveryItem res = new DeliveryItem();
         res.setProduct(product.get());
@@ -231,6 +230,18 @@ public class DeliveryItem implements Serializable{
         res.setYuan(yuan.get());
         res.setYuan_d1(yuan_d1.get());
         res.setYuan_d2(yuan_d2.get());
+        return res;
+    }
+
+    public DeliveryItemModel toItem(){
+        DeliveryItemModel res = new DeliveryItemModel();
+        res.setProduct(product.get());
+        res.setProduct(product.get());
+        res.setDetail(detail.get());
+        res.setUnit(unit.get());
+        res.setNote(note.get());
+        res.setPrice(price.get());
+        res.setNum(num.get()) ;
         return res;
     }
 }
