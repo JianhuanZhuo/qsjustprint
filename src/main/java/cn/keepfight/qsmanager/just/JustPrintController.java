@@ -12,6 +12,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
 import javafx.print.PageLayout;
+import javafx.print.PrintQuality;
+import javafx.print.PrintResolution;
 import javafx.print.Printer;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -173,6 +175,8 @@ public class JustPrintController implements Initializable {
                 type.getPaper(),
                 type.getOrientation(),
                 type.getMarginReqire(), type.getMarginReqire(), type.getMarginReqire(), type.getMarginReqire());
+
+        printer.getPrinterAttributes().getSupportedPrintQuality();
 
         new Thread(() -> {
             try {

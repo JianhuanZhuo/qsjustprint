@@ -17,9 +17,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.print.PageLayout;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
+import javafx.print.*;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -425,6 +423,16 @@ public class FXWidgetUtil {
         System.out.println("pageLayout.getPrintableWidth():" + pageLayout.getPrintableWidth());
         System.out.println("pageLayout.getTopMargin():" + pageLayout.getTopMargin());
         System.out.println("pageLayout.getLeftMargin():" + pageLayout.getLeftMargin());
+
+        for(PrintQuality q : printer.getPrinterAttributes().getSupportedPrintQuality()){
+            System.out.println("q:"+q);
+        }
+        for(PrintResolution q : printer.getPrinterAttributes().getSupportedPrintResolutions()){
+            System.out.println("r:"+q);
+        }
+
+        System.out.println(job.getJobSettings().getPrintResolution());
+        System.out.println(job.getJobSettings().getPrintQuality());
 
         Thread.sleep(100);
 
