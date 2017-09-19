@@ -21,7 +21,7 @@ public class QSJustPrint extends Application {
      */
     public static JustPrintController justPrintController;
 
-    public static Stage primaryStage;
+    private static Stage primaryStage;
 
     /**
      * 系统退出时执行动作列表
@@ -43,5 +43,9 @@ public class QSJustPrint extends Application {
     public void stop(){
         BillListServer.getInstance().storeToFile();
         PropertiesServer.getInstance().storeToFile();
+    }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 }

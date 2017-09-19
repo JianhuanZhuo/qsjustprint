@@ -24,8 +24,8 @@
         </HBox>
         <ListView fx:id="list_printable" prefWidth="128.0" VBox.vgrow="ALWAYS"/>
         <HBox styleClass="hbox-common">
-            <Button fx:id="btn_export" disable="true" text="导出"/>
-            <Button fx:id="btn_import" disable="true" text="导入"/>
+            <Button fx:id="btn_export" text="备份"/>
+            <Button fx:id="btn_import" text="恢复"/>
             <Pane HBox.hgrow="ALWAYS"/>
             <Button fx:id="btn_new" text="新增"/>
             <Button fx:id="btn_copy" text="复制"/>

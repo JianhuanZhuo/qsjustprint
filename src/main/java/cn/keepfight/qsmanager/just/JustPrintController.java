@@ -1,6 +1,7 @@
 package cn.keepfight.qsmanager.just;
 
 import cn.keepfight.qsmanager.BillListServer;
+import cn.keepfight.qsmanager.QSJustPrint;
 import cn.keepfight.qsmanager.print.QSPrintType;
 import cn.keepfight.utils.FXUtils;
 import cn.keepfight.utils.FXWidgetUtil;
@@ -18,7 +19,9 @@ import javafx.print.Printer;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -111,6 +114,8 @@ public class JustPrintController implements Initializable {
         btn_search.setOnAction(event -> searchFor(text_search.getText()));
         text_search.setOnAction(event -> searchFor(text_search.getText()));
         btn_all.setOnAction(event -> list_printable.setItems(BillListServer.getInstance().getPrintableList()));
+        btn_export.setOnAction(event -> saveAs());
+        btn_import.setOnAction(event -> recover());
 
         checkSupport();
     }
@@ -219,5 +224,35 @@ public class JustPrintController implements Initializable {
     }
     private void searchFor(String s){
         list_printable.setItems(new FilteredList<>(BillListServer.getInstance().getPrintableList(), (x) -> x.lookup(s)));
+    }
+
+    /**
+     * 打印记录另存为
+     */
+    private void saveAs(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择要备份到哪个目录下");
+        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("打印记录备份文件 (*.objs)", "*.objs"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\Desktop"));
+        fileChooser.setInitialFileName("打印记录备份.objs");
+        File backup = fileChooser.showSaveDialog(QSJustPrint.getPrimaryStage());
+        if (backup!=null) {
+            BillListServer.getInstance().storeToFile(backup);
+        }
+    }
+
+    /**
+     * 打印记录另存为
+     */
+    private void recover(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择要需要恢复的备份");
+        fileChooser.setSelectedExtensionFilter(new FileChooser.ExtensionFilter("打印记录备份文件 (*.objs)", "*.objs"));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "\\Desktop"));
+        fileChooser.setInitialFileName("打印记录备份.objs");
+        File backup = fileChooser.showOpenDialog(QSJustPrint.getPrimaryStage());
+        if (backup!=null) {
+            BillListServer.getInstance().loadFromFile(backup);
+        }
     }
 }
