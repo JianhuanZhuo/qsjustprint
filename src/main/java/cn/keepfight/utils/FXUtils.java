@@ -5,6 +5,7 @@ import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.WritableImage;
@@ -230,6 +231,9 @@ public class FXUtils {
      * @param text 包含需要转换的分数的文本控件
      */
     public static BigDecimal getDecimal(TextField text) {
+        return getDecimal(text.getText(), new BigDecimal(0));
+    }
+    public static BigDecimal getDecimal(Label text) {
         return getDecimal(text.getText(), new BigDecimal(0));
     }
 

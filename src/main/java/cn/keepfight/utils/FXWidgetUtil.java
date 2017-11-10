@@ -237,12 +237,59 @@ public class FXWidgetUtil {
             }
         });
     }
+    /**
+     * 将 target=sa oper sb 进行绑定
+     */
+    public static void simpleBiOper(Label target, BiFunction<BigDecimal, BigDecimal, BigDecimal> oper, TextField sa, TextField sb) {
+        target.textProperty().bind(new StringBinding() {
+            {
+                bind(sa.textProperty(), sb.textProperty());
+            }
+
+            @Override
+            protected String computeValue() {
+                try {
+                    return oper.apply(new BigDecimal(sa.getText()), new BigDecimal(sb.getText())).stripTrailingZeros().toPlainString();
+                } catch (Exception e) {
+                    return "0";
+                }
+            }
+        });
+    }
 
 
     /**
      * 将 target=sa oper1 sb oper2 sc 进行绑定
      */
     public static void simpleTriOper(TextField target,
+                                     BiFunction<BigDecimal, BigDecimal, BigDecimal> oper1,
+                                     BiFunction<BigDecimal, BigDecimal, BigDecimal> oper2,
+                                     TextField sa, TextField sb, TextField sc) {
+        target.textProperty().bind(new StringBinding() {
+            {
+                bind(sa.textProperty(), sb.textProperty(), sc.textProperty());
+            }
+
+            @Override
+            protected String computeValue() {
+                try {
+                    return oper2.apply(
+                            oper1.apply(
+                                    new BigDecimal(sa.getText()),
+                                    new BigDecimal(sb.getText())),
+                            new BigDecimal(sc.getText())
+                    ).stripTrailingZeros().toPlainString();
+                } catch (Exception e) {
+                    return "0";
+                }
+            }
+        });
+    }
+
+    /**
+     * 将 target=sa oper1 sb oper2 sc 进行绑定
+     */
+    public static void simpleTriOper(Label target,
                                      BiFunction<BigDecimal, BigDecimal, BigDecimal> oper1,
                                      BiFunction<BigDecimal, BigDecimal, BigDecimal> oper2,
                                      TextField sa, TextField sb, TextField sc) {

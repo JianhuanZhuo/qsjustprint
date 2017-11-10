@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="root" styleClass="title-pane, vbox-common" stylesheets="@css/print.css,@css/common.css"
+<HBox fx:id="root" styleClass="head-pane, vbox-common" stylesheets="@css/print.css,@css/common.css"
       xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="cn.keepfight.qsmanager.just.JustPrintController">
     <VBox>

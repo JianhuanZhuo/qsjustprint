@@ -32,13 +32,14 @@
     -fx-max-width: 840px;
     -fx-padding: 25px;
 }
+
 .snap .layout_A4H {
-     -fx-min-height: 545px;
-     -fx-max-height: 545px;
-     -fx-min-width: 790;
-     -fx-max-width: 790;
-     -fx-padding: 0;
- }
+    -fx-min-height: 545px;
+    -fx-max-height: 545px;
+    -fx-min-width: 790;
+    -fx-max-width: 790;
+    -fx-padding: 0;
+}
 
 .layout_A5H {
     /*
@@ -58,7 +59,7 @@
     -fx-min-height: 420px;
     -fx-max-height: 420px; /*312+(54*2=108)=420*/
     -fx-min-width: 595px;
-    -fx-max-width: 595px;    /*487+(54*2=108)=595*/
+    -fx-max-width: 595px; /*487+(54*2=108)=595*/
     -fx-padding: 25px;
 }
 
@@ -70,13 +71,12 @@
     -fx-padding: 0;
 }
 
-
 /* A4 纸，3分 */
 .layout_A4_3 {
     -fx-min-height: 280px;
     -fx-max-height: 280px; /*230+(25*2=50)=280*/
     -fx-min-width: 595px;
-    -fx-max-width: 595px;    /*545+(25*2=50)=595*/
+    -fx-max-width: 595px; /*545+(25*2=50)=595*/
     -fx-padding: 25px;
 }
 
@@ -85,7 +85,7 @@
     -fx-min-height: 230px;
     -fx-max-height: 230px; /*312+(54*2=108)=420*/
     -fx-min-width: 545px;
-    -fx-max-width: 545px;    /*487+(54*2=108)=595*/
+    -fx-max-width: 545px; /*487+(54*2=108)=595*/
     -fx-padding: 0px;
 }
 
@@ -96,6 +96,10 @@
 .print_title {
     -fx-font: bolder bolder 24px "微软雅黑";
     -fx-alignment: bottom-center;
+}
+
+.print_title > .print_detial {
+    -fx-font: normal normal 13px "微软雅黑";
 }
 
 .print_font {
@@ -110,7 +114,7 @@ GridPane.fitpack TextField {
     -fx-pref-width: 200px;
 }
 
-.tab{
+.tab {
     -fx-border-color: black;
     -fx-padding: 0;
 }
@@ -128,7 +132,7 @@ GridPane.fitpack TextField {
     -fx-text-fill: -fx-text-base-color;
 }
 
-.tab .table-cell{
+.tab .table-cell {
     -fx-border-width: 1;
     -fx-border-insets: -0.5;
     -fx-border-color: black;
@@ -137,20 +141,21 @@ GridPane.fitpack TextField {
 }
 
 /*用于带税的月对账表*/
-.tab.smallfont .table-cell{
+.tab.smallfont .table-cell {
     -fx-font: normal normal 10px "微软雅黑";
 }
+
 .tab.smallfont Label {
     -fx-font: normal normal 11px "微软雅黑";
 }
 
-.additional_cell{
+.additional_cell {
     -fx-border-width: 0 1 1 1;
     -fx-border-insets: 0 0 0 0;
     -fx-border-color: black;
 }
 
-.additional_cell.lessfont{
+.additional_cell.lessfont {
     -fx-font: normal normal 11px "微软雅黑";
 }
 
@@ -191,87 +196,108 @@ GridPane.fitpack TextField {
     -fx-text-fill: red;
 }
 
-
 /*my_grid 自定义的表格框框*/
-.my_grid HBox,.my_grid VBox{
+.my_grid HBox, .my_grid VBox {
     -fx-border-width: 1px;
     -fx-border-color: black;
     -fx-border-insets: -0.5;
 }
 
-.my_grid .gp-center{
+.my_grid .gp-center {
     -fx-alignment: center;
 }
-.my_grid .gp-center *{
+
+.my_grid .gp-center * {
     -fx-alignment: center;
 }
-.my_grid .gp-centerleft{
+
+.my_grid .gp-centerleft {
     -fx-alignment: center-left;
 }
 
-.smallfont{
+.smallfont {
     -fx-font: normal normal 10px "微软雅黑";
 }
 
-.contentfont{
+.contentfont {
     -fx-font: normal normal 11px "微软雅黑";
 }
 
-.bolder{
+.bolder {
     -fx-font-weight: bolder;
 }
 
-.annual_total{
+.annual_total {
     -fx-font: bolder normal 14px "微软雅黑";
 }
 
-.snap .drop{
+.snap .drop {
     -fx-background-color: transparent;
 }
-
 
 /***************************************************************
  * 专用收据内容相关的设定
  *
  ***************************************************************/
-.bill.print_title{
+.bill.print_title {
     -fx-border-width: 0 0 1px 0, 0 0 1px 0;
     -fx-border-insets: 1px, 3px;
     -fx-border-color: black, black;
 }
 
-.bill-font Label{
+.bill-font Label {
     -fx-font: normal normal 12px "微软雅黑";
 }
 
-.bill-font TextField{
+.bill-font TextField {
     -fx-font: normal normal 12px "微软雅黑";
 }
 
-.bill.print_title  TextField{
+.bill.print_title TextField {
     -fx-alignment: center;
 }
 
-.bill.print_title Label{
+.bill.print_title Label {
     -fx-font: normal normal 22px "微软雅黑";
 }
 
-.serial-line{
+.serial-line {
     -fx-padding: 2px;
 }
 
-.bill-content{
+.bill-content {
     -fx-border-color: black;
     -fx-border-width: 1px;
     -fx-padding: 5px 70px;
 }
 
-.bill-content TextField{
+.bill-content TextField {
     -fx-border-width: 0 0 1px 0;
     -fx-border-color: black;
 }
 
-.bill-font .stamp{
+.bill-font .stamp {
     -fx-min-height: 20px;
     -fx-max-height: 20px;
+}
+
+.game-grid {
+    /* 1 pixel border around the top and right of the grid: */
+    -fx-background-color: black, white;
+    -fx-background-insets: 0, 1 1 0 0;
+    -fx-padding: 1 1 0 0;
+}
+
+.game-grid>HBox, .game-grid>VBox{
+    /* 1 pixel border around the left and bottom of each cell: */
+    -fx-background-color: black, white;
+    -fx-background-insets: 0, 0 0 1 1;
+    -fx-alignment: center;
+}
+
+
+.game-grid>HBox>TextField, .game-grid>VBox>TextField{
+    -fx-background-color: transparent;
+    -fx-padding: 0px;
+    -fx-alignment: center;
 }

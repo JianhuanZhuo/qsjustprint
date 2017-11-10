@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" styleClass="layout_holder, preview" stylesheets="@css/print.css"
+      xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cn.keepfight.qsmanager.print.PrintMoreController">
+    <VBox styleClass="print_layout,layout_A4_3">
+        <VBox VBox.vgrow="ALWAYS">
+            <HBox styleClass="print_title, fitpack">
+                <TextField fx:id="head" alignment="CENTER" prefHeight="23.0" prefWidth="215.0" text="富华大厦"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label text="缴费通知单"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label styleClass="print_detial" text="打印日期："/>
+                <TextField fx:id="tf_date" alignment="CENTER" prefWidth="129.0" styleClass="print_detial" text="2017年09月05日"/>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+                <VBox HBox.hgrow="ALWAYS">
+                    <GridPane styleClass="btm-tip,game-grid">
+                        <HBox>
+                            <Label text="业主"/>
+                        </HBox>
+                        <HBox GridPane.rowIndex="1">
+                            <Label text="序号"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.columnSpan="4">
+                            <TextField fx:id="tf_host" text="211房"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="5" GridPane.columnSpan="2">
+                            <Label text="银行代缴费账号："/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="7" GridPane.columnSpan="2">
+                            <TextField fx:id="tf_bank" text="4412412223442"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <Label text="收费项目"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="1">
+                            <Label text="建筑面积"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="1">
+                            <Label text="数量"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="4" GridPane.rowIndex="1">
+                            <Label text="收费单价"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                            <Label text="计费期限"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="7" GridPane.rowIndex="1">
+                            <Label text="金额（元）"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="8" GridPane.rowIndex="1">
+                            <Label text="备注"/>
+                        </HBox>
+
+                        <!--1行-->
+                        <HBox GridPane.rowIndex="2">
+                            <Label text="1"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <Label text="住宅管理费"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <TextField fx:id="tf_house_s" text="36"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="2">
+                            <TextField fx:id="tf_house_num" text="1"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="4" GridPane.rowIndex="2">
+                            <TextField fx:id="tf_house_price" text="0.5"/>
+                        </HBox>
+                        <VBox GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                            <TextField fx:id="tf_time" text="2017年08月01日-2017年08月01日"/>
+                        </VBox>
+                        <VBox GridPane.columnIndex="7" GridPane.columnSpan="1" GridPane.rowIndex="2">
+                            <TextField fx:id="tf_house_total" text="18.00"/>
+                        </VBox>
+                        <VBox GridPane.columnIndex="8" GridPane.columnSpan="1" GridPane.rowIndex="2"
+                              GridPane.rowSpan="10">
+                            <TextArea fx:id="tf_note" style="-fx-background-color: transparent" text="备注.00" wrapText="true"/>
+                        </VBox>
+
+                        <!--2行-->
+                        <HBox GridPane.rowIndex="3" GridPane.rowSpan="2">
+                            <Label text="2"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                            <Label text="电费"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                            <Label/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                            <TextField fx:id="tf_ele_num" text="50"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                            <TextField fx:id="tf_ele_price"  text="0.96"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="5" GridPane.rowIndex="3">
+                            <Label text="上月"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="5" GridPane.rowIndex="4">
+                            <TextField fx:id="tf_ele_last" text="900"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="6" GridPane.rowIndex="3">
+                            <Label text="本月"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="6" GridPane.rowIndex="4">
+                            <TextField fx:id="tf_ele_now" text="950"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.rowSpan="2">
+                            <Label fx:id="tf_ele_total" text="48.00"/>
+                        </HBox>
+
+                        <HBox GridPane.rowIndex="5" GridPane.rowSpan="2">
+                            <Label text="3"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                            <Label text="水费"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                            <Label/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                            <TextField fx:id="tf_water_num" text="50"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                            <TextField fx:id="tf_water_price" text="0.96"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="5" GridPane.rowIndex="5">
+                            <Label text="上月"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="5" GridPane.rowIndex="6">
+                            <TextField fx:id="tf_water_last" text="900"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="6" GridPane.rowIndex="5">
+                            <Label text="本月"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="6" GridPane.rowIndex="6">
+                            <TextField fx:id="tf_water_now" text="950"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="7" GridPane.rowIndex="5" GridPane.rowSpan="2">
+                            <Label fx:id="tf_water_total" text="48.00"/>
+                        </HBox>
+
+                        <HBox GridPane.rowIndex="7">
+                            <Label text="4"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="7">
+                            <Label text="垃圾清运费"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="7">
+                            <Label/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="7">
+                            <TextField fx:id="gb_num" text="1"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="4" GridPane.rowIndex="7">
+                            <TextField fx:id="gb_price" text="0.5"/>
+                        </HBox>
+                        <VBox GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                            <Label/>
+                        </VBox>
+                        <VBox GridPane.columnIndex="7" GridPane.columnSpan="1" GridPane.rowIndex="7">
+                            <Label fx:id="gb_total" text="18.00"/>
+                        </VBox>
+
+
+                        <HBox GridPane.rowIndex="8">
+                            <Label text="5"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="8">
+                            <Label text="公摊电费"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="8">
+                            <Label/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="8">
+                            <TextField fx:id="tf_pele_num" text="30"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="4" GridPane.rowIndex="8">
+                            <TextField fx:id="tf_pele_price" text="0.96"/>
+                        </HBox>
+                        <VBox GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="8">
+                            <Label/>
+                        </VBox>
+                        <VBox GridPane.columnIndex="7" GridPane.columnSpan="1" GridPane.rowIndex="8">
+                            <Label fx:id="tf_pele_total" text="0"/>
+                        </VBox>
+
+
+                        <HBox GridPane.rowIndex="9">
+                            <Label text="6"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="9">
+                            <Label text="公摊水费"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="9">
+                            <Label/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="3" GridPane.rowIndex="9">
+                            <TextField fx:id="tf_pwater_num" text="0"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="4" GridPane.rowIndex="9">
+                            <TextField fx:id="tf_pwater_price" text="3.2"/>
+                        </HBox>
+                        <VBox GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                            <Label/>
+                        </VBox>
+                        <VBox GridPane.columnIndex="7" GridPane.columnSpan="1" GridPane.rowIndex="9">
+                            <Label fx:id="tf_pwater_total" text="0"/>
+                        </VBox>
+
+                        <HBox GridPane.rowIndex="10">
+                            <Label text="7"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="1" GridPane.rowIndex="10">
+                            <TextField fx:id="tf_other" text="公共维修费"/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="2" GridPane.rowIndex="10" GridPane.columnSpan="5" >
+                            <Label/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="7" GridPane.rowIndex="10">
+                            <TextField fx:id="tf_total" text="90"/>
+                        </HBox>
+
+                        <HBox style="-fx-alignment: center-right" GridPane.columnSpan="7" GridPane.rowIndex="11">
+                            <Label text="合计金额："/>
+                        </HBox>
+                        <HBox GridPane.columnIndex="7" GridPane.rowIndex="11">
+                            <Label text="￥"/>
+                            <Label fx:id="label_total" text="90"/>
+                        </HBox>
+
+                        <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" maxWidth="28.0" minWidth="28.0" prefWidth="28.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="55.0" minWidth="55.0"
+                                               prefWidth="55.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="117.0" minWidth="53.0"
+                                               prefWidth="53.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="194.0" minWidth="32.0"
+                                               prefWidth="32.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="194.0" minWidth="32.0"
+                                               prefWidth="49.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="194.0" minWidth="23.0"
+                                               prefWidth="81.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="194.0" minWidth="32.0"
+                                               prefWidth="81.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="87.0" minWidth="47.0"
+                                               prefWidth="55.0"/>
+                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="76.0" minWidth="48.0"
+                                               prefWidth="70.0"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0"/>
+                        </rowConstraints>
+                    </GridPane>
+                    <GridPane styleClass="btm-tip">
+                        <Label text="注：" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Label text="1.2015年的管理费开始扣费，请贵用户于每月08号前把上述费存入扣农业银行费存折或到客户服务中心缴纳现金" GridPane.columnIndex="1"
+                               GridPane.rowIndex="0"/>
+                        <Label text="2.如贵用户上述费用有疑问，请与管理处客户服务中心联系，电话0757-86777886" GridPane.columnIndex="1"
+                               GridPane.rowIndex="1"/>
+                        <columnConstraints>
+                            <ColumnConstraints/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <rowConstraints>
+                            <RowConstraints/>
+                            <RowConstraints/>
+                        </rowConstraints>
+                    </GridPane>
+                </VBox>
+                <VBox styleClass="rightp">
+                    <Label text="①存根②客户" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</VBox>

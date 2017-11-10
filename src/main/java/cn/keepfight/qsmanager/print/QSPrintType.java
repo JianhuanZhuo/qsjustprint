@@ -23,7 +23,8 @@ import java.io.IOException;
 public enum QSPrintType {
     DELIVERY("print_delivery.fxml"),
     RECEIPT("print_receipt.fxml"),
-    RECEIPT_P("print_receipt_p.fxml");
+    RECEIPT_P("print_receipt_p.fxml"),
+    RECEIPT_M("print_more.fxml");
 
     private PrintPaneController controller;
     QSPrintType(String viewPath) {
